@@ -16,6 +16,5 @@ class nginx::backports(
       ensure   => $ensure,
       packages => $nginx::package_name,
       priority => 500,
-      release  => 'main',
     }
 }
