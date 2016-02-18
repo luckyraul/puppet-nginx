@@ -17,5 +17,5 @@ class nginx::backports(
       packages => [$nginx::package_name,'nginx-common'],
       priority => 500,
       release  => "${::lsbdistcodename}-backports",
-    }
+    } ~> Exec['apt-update']
 }
