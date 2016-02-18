@@ -20,4 +20,6 @@ class nginx::dotdeb(
         include_src => false,
         require     => Apt::Key['nginx::dotdeb'],
     }
+
+    Exec['apt_update'] -> Package['nginx']
 }
