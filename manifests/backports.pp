@@ -9,6 +9,7 @@ class nginx::backports(
         $ensure = 'absent'
     }
 
+    include apt
     include apt::backports
 
     apt::pin { 'backports_nginx':
