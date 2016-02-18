@@ -29,7 +29,7 @@ class nginx (
     if $dotdeb {
         class { 'nginx::dotdeb': } -> Anchor['nginx::begin']
     }
-    if $backports
+    if $backports { 
         class { 'nginx::backports': } -> Anchor['nginx::begin']
     }
 
