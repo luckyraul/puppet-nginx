@@ -42,23 +42,23 @@ class nginx::config (
     }
 
     if $default_server {
-        file { '/etc/nginx/sites-available/default.conf':
+        file { '/etc/nginx/sites-available/default':
             ensure  => present,
             content => template('nginx/vhost/default.erb'),
         }
 
-        file { '/etc/nginx/sites-enabled/default.conf':
+        file { '/etc/nginx/sites-enabled/default':
             ensure => 'link',
             target => '/etc/nginx/sites-available/default.conf',
         }
 
-        File[$default_directories] -> File['/etc/nginx/sites-available/default.conf'] -> File['/etc/nginx/sites-enabled/default.conf']
+        File[$default_directories] -> File['/etc/nginx/sites-available/default'] -> File['/etc/nginx/sites-enabled/default']
 
     } else {
-        file { '/etc/nginx/sites-available/default.conf':
+        file { '/etc/nginx/sites-available/default':
             ensure  => absent,
         }
-        file { '/etc/nginx/sites-enabled/default.conf':
+        file { '/etc/nginx/sites-enabled/default':
             ensure  => absent,
         }
     }
