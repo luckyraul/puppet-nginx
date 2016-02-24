@@ -10,15 +10,17 @@ class nginx::dotdeb(
 {
     include apt
     create_resources(::apt::key, { 'nginx::dotdeb' => {
-        key => $key['id'], key_source => $key['source'],
+        id => $key['id'], source => $key['source'],
     }})
 
     ::apt::source { "dotdeb_nginx_${::lsbdistcodename}":
-        location    => $location,
-        release     => $::lsbdistcodename,
-        repos       => $repos,
-        include_src => false,
-        require     => Apt::Key['nginx::dotdeb'],
+        location => $location,
+        release  => $::lsbdistcodename,
+        repos    => $repos,
+        include {
+            src => false
+        },
+        require  => Apt::Key['nginx::dotdeb'],
     }
 
     Exec['apt_update'] -> Package['nginx']

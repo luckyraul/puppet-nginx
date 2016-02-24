@@ -1,0 +1,68 @@
+user <%= @daemon_user %>;
+worker_processes <%= @processorcount %>;
+pid <%= @daemon_pid %>;
+
+events {
+    worker_connections <%= @worker_connections %>;
+    multi_accept <%= @multi_accept %>;
+}
+http {
+
+    ##
+    # Basic Settings
+    ##
+    sendfile <%= @sendfile %>;
+    tcp_nopush <%= @tcp_nopush %>;
+    tcp_nodelay <%= @tcp_nodelay %>;
+
+    keepalive_timeout <%= @keepalive_timeout %>;
+    keepalive_requests <%= @keepalive_requests %>;
+    reset_timedout_connection <%= @reset_timedout_connection %>;
+
+    types_hash_max_size <%= @types_hash_max_size %>;
+    types_hash_bucket_size <%= @types_hash_bucket_size %>;
+    server_names_hash_bucket_size <%= @server_names_hash_bucket_size %>;
+    server_names_hash_max_size <%= @server_names_hash_max_size %>;
+    server_tokens <%= @server_tokens %>;
+
+    # body
+    client_max_body_size <%= @client_max_body_size %>;
+    client_body_timeout <%= @client_body_timeout %>;
+
+    ##
+    # Cache
+    ##
+    open_file_cache <%= @open_file_cache %>;
+    open_file_cache_valid <%= @open_file_cache_valid %>;
+    open_file_cache_min_uses <%= @open_file_cache_min_uses %>;
+    open_file_cache_errors <%= @open_file_cache_errors %>;
+
+    ##
+    # FastCGI
+    ##
+    fastcgi_read_timeout <%= @fastcgi_read_timeout %>;
+
+    ##
+    # Logging Settings
+    ##
+    access_log <%= @access_log %>;
+    error_log  <%= @error_log %>;
+
+    ##
+    # Gzip Settings
+    ##
+    gzip <%= @gzip %>;
+    gzip_disable <%= @gzip_disable %>;
+    gzip_vary <%= @gzip_vary %>;
+    gzip_comp_level <%= @gzip_comp_level %>;
+    gzip_types <%= @gzip_types.kind_of?(Array) ? @gzip_types.join(' ') : @gzip_types %>;
+    # gzip_buffers 16 8k;
+    # gzip_http_version 1.1;
+    # gzip_proxied any;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
