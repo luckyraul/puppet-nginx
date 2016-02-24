@@ -3,9 +3,8 @@
 class nginx::packages (
     $ensure       = $nginx::ensure,
     $package_name = $nginx::package_name,
-)  {
-    include nginx::params
-
+)  inherits nginx::params
+{
     package { 'nginx':
         ensure => $ensure,
         name   => $package_name,

@@ -30,9 +30,9 @@ class nginx::config (
     $gzip_vary                     = $nginx::gzip_vary,
     $gzip_comp_level               = $nginx::gzip_comp_level,
     $gzip_types                    = $nginx::gzip_types
-)
+) inherits nginx::params
 {
-    include nginx::params
+
 
     file { '/etc/nginx/nginx.conf':
         ensure  => present,
