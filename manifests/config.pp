@@ -1,6 +1,8 @@
 # == Class: nginx::config
 #
 class nginx::config (
+    $default_server                = $nginx::default_server,
+    $default_directories           = $nginx::params::default_directories,
     $daemon_user                   = $nginx::daemon_user,
     $daemon_pid                    = $nginx::daemon_pid,
     $worker_connections            = $nginx::worker_connections,
@@ -39,24 +41,48 @@ class nginx::config (
         content => template('nginx/base/nginx.conf.erb'),
     }
 
-    file { '/etc/nginx/sites-available':
+    if $default_server {
+        file { '/etc/nginx/sites-available/default.conf':
+            ensure  => present,
+            content => template('nginx/vhost/default.erb'),
+        }
+
+        file { '/etc/nginx/sites-enabled/default.conf':
+            ensure => 'link',
+            target => '/etc/nginx/sites-available/default.conf',
+        }
+
+        File[$default_directories] -> File['/etc/nginx/sites-available/default.conf'] -> File['/etc/nginx/sites-enabled/default.conf']
+
+    } else {
+        file { '/etc/nginx/sites-available/default.conf':
+            ensure  => absent,
+        }
+        file { '/etc/nginx/sites-enabled/default.conf':
+            ensure  => absent,
+        }
+    }
+
+    file { '/etc/nginx/conf.d/default.conf':
+        ensure  => absent,
+    }
+
+    file { $default_directories:
         ensure  => directory,
     }
 
-    file { '/etc/nginx/sites-enabled':
-        ensure  => directory,
+    File[$default_directories] -> class { 'nginx::dhparam': }
+
+    file { '/etc/nginx/includes/static_files':
+        ensure  => present,
+        require => File[$default_directories],
+        content => template('nginx/includes/static.erb'),
     }
 
-    file { '/etc/nginx/ssl':
-        ensure  => directory,
-    }
-
-    file { '/etc/nginx/geoip':
-        ensure  => directory,
-    }
-
-    file { '/etc/nginx/includes':
-        ensure  => directory,
+    file { '/etc/nginx/includes/ssl':
+        ensure  => present,
+        require => File[$default_directories],
+        content => template('nginx/includes/ssl.erb'),
     }
 
     if ! defined(File['/var/www']) {

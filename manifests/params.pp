@@ -5,12 +5,13 @@ class nginx::params {
     $service_enable = true
     $daemon_user = 'www-data'
     $daemon_pid = '/var/run/nginx.pid'
+    $default_directories = ['/etc/nginx/sites-enabled','/etc/nginx/sites-available','/etc/nginx/ssl','/etc/nginx/geoip','/etc/nginx/includes']
+
     $worker_connections = 1024
     $multi_accept = 'on'
     $sendfile = 'on'
     $tcp_nopush = 'on'
     $tcp_nodelay = 'on'
-
     $keepalive_timeout = 65
     $keepalive_requests = 100
     $reset_timedout_connection = 'on'

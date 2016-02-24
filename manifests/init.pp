@@ -18,6 +18,7 @@ class nginx (
     $package_name                  = $nginx::params::package_name,
     $backports                     = true,
     $dotdeb                        = false,
+    $default_server                = true,
     $daemon_user                   = $nginx::params::daemon_user,
     $daemon_pid                    = $nginx::params::daemon_pid,
     $worker_connections            = $nginx::params::worker_connections,

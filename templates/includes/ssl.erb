@@ -1,0 +1,5 @@
+ssl_ciphers	'EECDH+ECDSA+AESGCM:AES128+EECDH:AES128+EDH:!RC4:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS:!CAMELLIA:!ADH';
+ssl_prefer_server_ciphers   on;
+ssl_protocols               TLSv1.2 TLSv1.1 TLSv1;
+ssl_session_cache           shared:SSL:20m;
+ssl_session_timeout         10m;
