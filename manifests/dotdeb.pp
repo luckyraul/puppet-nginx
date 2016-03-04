@@ -17,7 +17,7 @@ class nginx::dotdeb(
         location => $location,
         release  => $::lsbdistcodename,
         repos    => $repos,
-        include {
+        include  => {
             src => false
         },
         require  => Apt::Key['nginx::dotdeb'],
