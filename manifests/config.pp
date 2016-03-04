@@ -49,7 +49,7 @@ class nginx::config (
 
         file { '/etc/nginx/sites-enabled/default':
             ensure => 'link',
-            target => '/etc/nginx/sites-available/default.conf',
+            target => '/etc/nginx/sites-available/default',
         }
 
         File[$default_directories] -> File['/etc/nginx/sites-available/default'] -> File['/etc/nginx/sites-enabled/default']
