@@ -63,6 +63,10 @@ define nginx::resources::vhost (
                 content => template('nginx/vhost/parts/listen.erb'),
                 order   => '02',
             }
+            $domain_sanit = regsubst($domain, '\.', '_', 'G')
+            if ( $domain_alias) {
+                $domain_alias_str = inline_template("<%= @domain_alias.collect{|x| x +' www.'+x.to_s}.join(' ') %>")
+            }
             case $type {
                 'static': {
                     concat::fragment { "${domain}-body":
@@ -72,7 +76,6 @@ define nginx::resources::vhost (
                     }
                 }
                 'proxy': {
-                    $domain_sanit = regsubst($domain, '\.', '_', 'G')
                     $app = "proxy-${domain_sanit}"
                     concat::fragment { "${domain}-upstream":
                         target  => $conf_file,

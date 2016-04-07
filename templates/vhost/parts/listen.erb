@@ -11,3 +11,4 @@
     ssl_certificate_key  <%= @ssl_key  %>;
     include includes/ssl;
     <%- end -%>
+    server_name <%= @domain%> www.<%= @domain%> <%= @domain_alias_str %>;
