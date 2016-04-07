@@ -39,11 +39,15 @@ define nginx::resources::vhost (
             ensure  => $ensure,
             content => template($template),
         }
+        File[$conf_file] ~> Service['nginx']
     } else {
         if($type) {
             concat { $conf_file:
                 ensure  => $ensure,
             }
+
+            Concat[$conf_file] ~> Service['nginx']
+
             concat::fragment { "${domain}-server":
                 target  => $conf_file,
                 content => 'server {',
@@ -83,8 +87,6 @@ define nginx::resources::vhost (
             }
         }
     }
-
-    File[$conf_file] ~> Service['nginx']
 
     case $ensure {
         'present' : {
