@@ -1,6 +1,6 @@
 # define: nginx::resource::vhost
 define nginx::resources::vhost (
-    $root_folder,
+    $root_folder    = undef,
     $domain         = '_',
     $ensure         = 'present',
     $listen_ip      = '*',
@@ -72,7 +72,7 @@ define nginx::resources::vhost (
                     }
                 }
                 'proxy': {
-                    $domain_sanit = regsubst($domain, '.', '_', 'G')
+                    $domain_sanit = regsubst($domain, '\.', '_', 'G')
                     $app = "proxy-${domain_sanit}"
                     concat::fragment { "${domain}-upstream":
                         target  => $conf_file,
