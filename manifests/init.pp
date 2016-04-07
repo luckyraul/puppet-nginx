@@ -49,6 +49,7 @@ class nginx (
     $gzip_vary                     = $nginx::params::gzip_vary,
     $gzip_comp_level               = $nginx::params::gzip_comp_level,
     $gzip_types                    = $nginx::params::gzip_types,
+    $proxy_set_header              = $nginx::params::proxy_set_header,
 
     ### HIERA ###
     $nginx_vhosts                  = {},

@@ -1,3 +1,8 @@
     location / {
         proxy_pass http://<%= @app %>;
+        <% unless @proxy_set_header.nil? -%>
+            <%- @proxy_set_header.each do |header| -%>
+        proxy_set_header <%= header %>;
+            <%- end -%>
+        <% end -%>
     }

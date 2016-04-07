@@ -15,6 +15,7 @@ define nginx::resources::vhost (
     $http_auth_url  = '/',
     $template       = undef,
     $upstreams      = [],
+    $proxy_headers  = $nginx::proxy_set_header
     $type           = undef,
 )
 {

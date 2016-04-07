@@ -43,6 +43,14 @@ class nginx::params {
     $gzip_comp_level = 1
     $gzip_types = ['text/plain','text/css','application/json','application/javascript','application/x-javascript','text/xml','application/xml','application/rss+xml','text/javascript','image/svg+xml','application/vnd.ms-fontobject','application/x-font-ttf','font/opentype']
 
+
+    #proxy
+    $proxy_set_header = [
+        'Host $host',
+        'X-Real-IP $remote_addr',
+        'X-Forwarded-For $proxy_add_x_forwarded_for',
+    ]
+
     case $::operatingsystem {
         'Debian': {
             case $::lsbdistcodename {
