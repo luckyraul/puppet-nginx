@@ -50,12 +50,12 @@ define nginx::resources::vhost (
 
             concat::fragment { "${domain}-server":
                 target  => $conf_file,
-                content => 'server {',
+                content => "server {\n",
                 order   => '01',
             }
             concat::fragment { "${domain}-server_end":
                 target  => $conf_file,
-                content => '}',
+                content => "}\n",
                 order   => '90',
             }
             concat::fragment { "${domain}-listen":
@@ -72,6 +72,8 @@ define nginx::resources::vhost (
                     }
                 }
                 'proxy': {
+                    $domain_sanit = regsubst($domain, '.', '_', 'G')
+                    $app = "proxy-${domain_sanit}"
                     concat::fragment { "${domain}-upstream":
                         target  => $conf_file,
                         content => template('nginx/vhost/parts/upstream.erb'),

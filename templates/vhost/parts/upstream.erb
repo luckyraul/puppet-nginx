@@ -1,5 +1,4 @@
-upstream myapp1 {
-    server srv1.example.com;
-    server srv2.example.com;
-    server srv3.example.com;
+upstream <%= @app %> {
+    <% @upstreams.each do |i| %>
+    server <%= i %>;<% end %>
 }
