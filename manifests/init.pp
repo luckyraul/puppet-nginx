@@ -48,7 +48,12 @@ class nginx (
     $gzip_disable                  = $nginx::params::gzip_disable,
     $gzip_vary                     = $nginx::params::gzip_vary,
     $gzip_comp_level               = $nginx::params::gzip_comp_level,
-    $gzip_types                    = $nginx::params::gzip_types
+    $gzip_types                    = $nginx::params::gzip_types,
+
+    ### HIERA ###
+    $nginx_vhosts                  = {},
+    $nginx_vhosts_defaults         = {},
+
     ) inherits nginx::params
 {
 
@@ -66,6 +71,8 @@ class nginx (
     }
 
     class { 'nginx::packages': } -> class { 'nginx::config': } ~> class { 'nginx::service': }
+
+    create_resources('nginx::resources::vhost', $nginx_vhosts, $nginx_vhosts_defaults)
 
     anchor { 'nginx::begin':
         before => Class['nginx::packages'],

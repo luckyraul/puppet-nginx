@@ -30,5 +30,6 @@
     {"name":"puppetlabs/stdlib","version_requirement":">= 4.1.0"},
     {"name":"puppetlabs/apt","version_requirement":">= 1.8.0 <= 3.0.0"},
     {"name": "puppetlabs/inifile","version_requirement":">= 1.4.3"}
+    {"name": "puppetlabs/concat","version_requirement":">= 2.1.0"}
   ]
 }
