@@ -65,6 +65,15 @@ class nginx (
         class { 'nginx::backports': } -> Anchor['nginx::begin']
     }
 
-    anchor { 'nginx::begin': } -> class { 'nginx::packages': } -> class { 'nginx::config': } ~> class { 'nginx::service': } -> anchor { 'nginx::end': }
+    class { 'nginx::packages': } -> class { 'nginx::config': } ~> class { 'nginx::service': }
+
+    anchor { 'nginx::begin':
+        before => Class['nginx::packages'],
+        notify => Class['nginx::service'],
+    }
+
+    anchor { 'nginx::end':
+        require => Class['nginx::service'],
+    }
 
 }
