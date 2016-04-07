@@ -15,6 +15,7 @@ class nginx (
     $ensure                        = $nginx::params::ensure,
     $service_ensure                = $nginx::params::service_ensure,
     $service_enable                = $nginx::params::service_enable,
+    $service_restart               = $nginx::params::service_restart,
     $package_name                  = $nginx::params::package_name,
     $backports                     = true,
     $dotdeb                        = false,

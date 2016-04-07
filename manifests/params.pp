@@ -2,6 +2,7 @@
 class nginx::params {
     $ensure = present
     $service_ensure = 'running'
+    $service_restart = '/etc/init.d/nginx reload'
     $service_enable = true
     $daemon_user = 'www-data'
     $daemon_pid = '/var/run/nginx.pid'
