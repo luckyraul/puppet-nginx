@@ -75,7 +75,7 @@ define nginx::resources::vhost (
                     concat::fragment { "${domain}-upstream":
                         target  => $conf_file,
                         content => template('nginx/vhost/parts/upstream.erb'),
-                        order   => '10',
+                        order   => '91',
                     }
                     concat::fragment { "${domain}-body":
                         target  => $conf_file,
