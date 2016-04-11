@@ -1,3 +1,4 @@
+root <% @root_folder %>;
 location / {
     <% if @http_auth && @http_auth_url == '/' %>satisfy any;
     allow 127.0.0.1;
