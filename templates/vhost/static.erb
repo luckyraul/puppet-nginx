@@ -1,12 +1,12 @@
-root <% @root_folder %>;
-location / {
-    <% if @http_auth && @http_auth_url == '/' %>satisfy any;
-    allow 127.0.0.1;
-    deny  all;
-    auth_basic "Restricted";
-    auth_basic_user_file  <%= @root_folder%><%= @http_auth_file %>;
-    <% end %>
-    index index.html;
-    try_files $uri $uri/index.html $uri.html =404;
-    expires 30d;
-}
+    root <%= @root_folder %>;
+    location / {
+        <% if @http_auth && @http_auth_url == '/' %>satisfy any;
+        allow 127.0.0.1;
+        deny  all;
+        auth_basic "Restricted";
+        auth_basic_user_file  <%= @root_folder%><%= @http_auth_file %>;
+        <% end %>
+        index index.html;
+        try_files $uri $uri/index.html $uri.html =404;
+        expires 30d;
+    }
