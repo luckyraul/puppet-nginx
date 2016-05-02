@@ -1,5 +1,8 @@
 user <%= @daemon_user %>;
 worker_processes <%= @processorcount %>;
+<% if @worker_rlimit_nofile -%>
+worker_rlimit_nofile <%= @worker_rlimit_nofile %>;
+<% end -%>
 pid <%= @daemon_pid %>;
 
 events {

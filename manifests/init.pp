@@ -23,6 +23,7 @@ class nginx (
     $daemon_user                   = $nginx::params::daemon_user,
     $daemon_pid                    = $nginx::params::daemon_pid,
     $worker_connections            = $nginx::params::worker_connections,
+    $worker_rlimit_nofile          = undef,
     $multi_accept                  = $nginx::params::multi_accept,
     $sendfile                      = $nginx::params::sendfile,
     $tcp_nopush                    = $nginx::params::tcp_nopush,
