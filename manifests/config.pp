@@ -6,6 +6,7 @@ class nginx::config (
     $daemon_user                   = $nginx::daemon_user,
     $daemon_pid                    = $nginx::daemon_pid,
     $worker_connections            = $nginx::worker_connections,
+    $worker_rlimit_nofile          = $nginx::worker_rlimit_nofile,
     $multi_accept                  = $nginx::multi_accept,
     $sendfile                      = $nginx::sendfile,
     $tcp_nopush                    = $nginx::tcp_nopush,
