@@ -57,7 +57,7 @@ server {
   <%- if @rewrite_www_to_non_www -%>
   server_name <%= @domains.join(" ").gsub(/^www\./, '') %>;
   <%- elsif @rewrite_non_www_to_www -%>
-  server_name <%= @domains.join(" www.").gsub(/^www\./, '') %>;
+  server_name <%= @domains.collect{|d| 'www.'+d.to_s.gsub(/^www\./, '')}.join(' ') %>;
   <%- else -%>
   server_name <%= @domains.collect{|d| d +' www.'+d.to_s}.join(' ') %>;
   <%- end -%>
