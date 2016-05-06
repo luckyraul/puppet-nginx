@@ -77,7 +77,7 @@ define nginx::resources::vhost (
 
     validate_bool($rewrite_non_www_to_www)
     validate_bool($rewrite_www_to_non_www)
-    if($rewrite_www_to_non_www and $rewrite_www_to_non_www)
+    if($rewrite_non_www_to_www and $rewrite_www_to_non_www)
     {
       fail('www <-> non www loooop')
     }
