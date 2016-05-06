@@ -114,6 +114,14 @@ define nginx::resources::vhost (
             content => template('nginx/vhost/parts/head.erb'),
             order   => '01',
         }
+
+        if($proxy){
+          concat::fragment { "${main_domain}-body":
+              target  => $conf_file,
+              content => template('nginx/vhost/proxy.erb'),
+              order   => '50',
+          }
+        }
         concat::fragment { "${main_domain}-footer":
             target  => $conf_file,
             content => template('nginx/vhost/parts/footer.erb'),
