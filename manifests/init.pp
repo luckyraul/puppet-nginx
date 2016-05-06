@@ -55,7 +55,7 @@ class nginx (
 
     ### HIERA ###
     $nginx_vhosts                  = {},
-    $nginx_vhosts_defaults         = {require => Class['nginx::service']},
+    $nginx_vhosts_defaults         = {require => Class['nginx::config']},
 
     ) inherits nginx::params
 {
