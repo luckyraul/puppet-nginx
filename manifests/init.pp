@@ -20,6 +20,7 @@ class nginx (
     $backports                     = true,
     $dotdeb                        = false,
     $default_server                = true,
+    $default_port                  = 80,
     $daemon_user                   = $nginx::params::daemon_user,
     $daemon_pid                    = $nginx::params::daemon_pid,
     $worker_connections            = $nginx::params::worker_connections,

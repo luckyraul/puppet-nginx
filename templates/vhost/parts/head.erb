@@ -1,0 +1,63 @@
+<% if @rewrite_www_to_non_www -%>
+<%- @domains.each do |d| -%>
+server {
+  <%- if @listen_ip.is_a?(Array) then -%>
+      <%- @listen_ip.each do |ip| -%>
+  listen <%= ip %>:<%= @listen_port %>;
+      <%- end -%>
+  <%- else -%>
+  listen <%= @listen_ip %>:<%= @listen_port %>;
+  <%- end -%>
+  <%- if @ssl -%>
+  listen <%= @listen_ip %>:<%= @listen_port %> 443<%- if @http2 -%> http2<% end %>;
+  ssl_certificate      <%= @ssl_cert %>;
+  ssl_certificate_key  <%= @ssl_key  %>;
+  include includes/ssl;
+  <%- end -%>
+  server_name www.<%= d.gsub(/^www\./, '') %>;
+  return 301 $scheme://<%= d.gsub(/^www\./, '') %>$request_uri;
+}
+<% end -%>
+<% end -%>
+<% if @rewrite_non_www_to_www -%>
+<%- @domains.each do |d| -%>
+server {
+  <%- if @listen_ip.is_a?(Array) then -%>
+      <%- @listen_ip.each do |ip| -%>
+  listen <%= ip %>:<%= @listen_port %>;
+      <%- end -%>
+  <%- else -%>
+  listen <%= @listen_ip %>:<%= @listen_port %>;
+  <%- end -%>
+  <%- if @ssl -%>
+  listen <%= @listen_ip %>:<%= @listen_port %> 443<%- if @http2 -%> http2<% end %>;
+  ssl_certificate      <%= @ssl_cert %>;
+  ssl_certificate_key  <%= @ssl_key  %>;
+  include includes/ssl;
+  <%- end -%>
+  server_name <%= d.gsub(/^www\./, '') %>;
+  return 301 $scheme://www.<%= d.gsub(/^www\./, '') %>$request_uri;
+}
+<% end -%>
+<% end -%>
+server {
+  <%- if @listen_ip.is_a?(Array) then -%>
+      <%- @listen_ip.each do |ip| -%>
+  listen <%= ip %>:<%= @listen_port %>;
+      <%- end -%>
+  <%- else -%>
+  listen <%= @listen_ip %>:<%= @listen_port %>;
+  <%- end -%>
+  <%- if @ssl -%>
+  listen <%= @listen_ip %>:<%= @listen_port %> 443<%- if @http2 -%> http2<% end %>;
+  ssl_certificate      <%= @ssl_cert %>;
+  ssl_certificate_key  <%= @ssl_key  %>;
+  include includes/ssl;
+  <%- end -%>
+  <%- if @rewrite_www_to_non_www -%>
+  server_name <%= @domains.join(" ").gsub(/^www\./, '') %>;
+  <%- elsif @rewrite_non_www_to_www -%>
+  server_name <%= @domains.join(" www.").gsub(/^www\./, '') %>;
+  <%- else -%>
+  server_name <%= @domains.collect{|d| d +' www.'+d.to_s}.join(' ') %>;
+  <%- end -%>
