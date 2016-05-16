@@ -4,7 +4,11 @@
 #   01 - head (server)
 #   02 - listen
 #
+#
+#   50 - body
+#
 #   90 - server end
+#   95 - upstreams
 define nginx::resources::vhost (
     $root_folder       = undef,
     $domains           = ['_'],
@@ -40,7 +44,7 @@ define nginx::resources::vhost (
 
     ### ADDITIONS
     $includes          = [],
-    $upstreams         = [],
+    $upstreams         = {},
     $locations         = {},
     $template          = undef,
     $type              = undef,
@@ -115,6 +119,11 @@ define nginx::resources::vhost (
             order   => '01',
         }
 
+        if($upstreams) {
+            $nginx_upstream_defaults = {'file' => $conf_file, 'domain' => $main_domain}
+            create_resources('nginx::resources::upstreams', $upstreams, $nginx_upstream_defaults)
+        }
+
         if($proxy){
           concat::fragment { "${main_domain}-body":
               target  => $conf_file,
@@ -125,7 +134,7 @@ define nginx::resources::vhost (
         concat::fragment { "${main_domain}-footer":
             target  => $conf_file,
             content => template('nginx/vhost/parts/footer.erb'),
-            order   => '99',
+            order   => '90',
         }
     }
 

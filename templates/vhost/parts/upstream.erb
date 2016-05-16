@@ -1,4 +1,4 @@
-upstream <%= @app %> {
-    <% @upstreams.each do |i| %>
-    server <%= i %>;<% end %>
+upstream <%= @name %> {
+    <% @members.each do |u| %>
+    server <%= u["url"] %>;<% end %>
 }
