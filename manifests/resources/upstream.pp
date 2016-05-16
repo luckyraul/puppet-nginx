@@ -18,5 +18,4 @@ define nginx::resources::upstream (
         content => template('nginx/vhost/parts/upstream.erb'),
         order   => '95',
     }
-
 }

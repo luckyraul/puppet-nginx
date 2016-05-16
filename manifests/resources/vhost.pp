@@ -121,7 +121,7 @@ define nginx::resources::vhost (
 
         if($upstreams) {
             $nginx_upstream_defaults = {'file' => $conf_file, 'domain' => $main_domain}
-            create_resources('nginx::resources::upstreams', $upstreams, $nginx_upstream_defaults)
+            create_resources('nginx::resources::upstream', $upstreams, $nginx_upstream_defaults)
         }
 
         if($proxy){
