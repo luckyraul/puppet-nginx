@@ -7,7 +7,10 @@
 #
 #   50 - body
 #
+#   70 - locations
+#
 #   90 - server end
+#
 #   95 - upstreams
 define nginx::resources::vhost (
     $root_folder       = undef,
@@ -123,6 +126,10 @@ define nginx::resources::vhost (
         if($upstreams) {
             $nginx_upstream_defaults = {'file' => $conf_file, 'domain' => $main_domain}
             create_resources('nginx::resources::upstream', $upstreams, $nginx_upstream_defaults)
+        }
+        if($locations) {
+            $nginx_location_defaults = {'file' => $conf_file, 'domain' => $main_domain}
+            create_resources('nginx::resources::location', $locations, $nginx_location_defaults)
         }
 
         if($proxy){
