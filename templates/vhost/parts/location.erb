@@ -1,5 +1,15 @@
   location <%= @location %> {
-    <%- @config.sort_by {|k,v| k}.each do |key,value| -%>
-      <%= key %> <%= value %>;
+<%- @config.sort_by {|k,v| k}.each do |key,value| -%>
+  <%- if value.is_a?(Hash) -%>
+    <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
+      <%- Array(subvalue).each do |asubvalue| -%>
+    <%= key %> <%= subkey %> <%= asubvalue %>;
     <%- end -%>
+    <%- end -%>
+  <%- else -%>
+    <%- Array(value).each do |asubvalue| -%>
+    <%= key %> <%= asubvalue %>;
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
   }
