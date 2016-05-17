@@ -67,7 +67,7 @@ http {
     ##
     # Proxy Settings
     ##
-<% if @worker_rlimit_nofile -%>
+<% if @proxy_cache_path -%>
     proxy_cache_path <%= @proxy_cache_path %>;
 <% end -%>
     proxy_cache_use_stale <%= @proxy_cache_use_stale %>;
