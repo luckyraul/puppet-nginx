@@ -51,6 +51,14 @@ class nginx (
     $gzip_vary                     = $nginx::params::gzip_vary,
     $gzip_comp_level               = $nginx::params::gzip_comp_level,
     $gzip_types                    = $nginx::params::gzip_types,
+
+    ### PROXY
+    $proxy_cache_path              = $nginx::params::proxy_cache_path,
+    $proxy_cache_use_stale         = $nginx::params::proxy_cache_use_stale,
+    $proxy_cache_revalidate        = $nginx::params::proxy_cache_revalidate,
+    $proxy_cache_min_uses          = $nginx::params::proxy_cache_min_uses,
+    $proxy_cache_lock              = $nginx::params::proxy_cache_lock,
+    $proxy_cache_key               = $nginx::params::proxy_cache_key,
     $proxy_set_header              = $nginx::params::proxy_set_header,
 
     ### HIERA ###

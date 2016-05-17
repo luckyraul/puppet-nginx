@@ -37,6 +37,7 @@ define nginx::resources::vhost (
     ### PROXY
     $proxy             = undef,
     $proxy_headers     = $nginx::proxy_set_header,
+    $proxy_read_timeout = undef,
 
     ### REWRITE
     $rewrite_www_to_non_www  = false,

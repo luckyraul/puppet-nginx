@@ -45,6 +45,13 @@ class nginx::params {
 
 
     #proxy
+    $proxy_cache_path = undef
+    $proxy_cache_use_stale = 'off'
+    $proxy_cache_revalidate = 'off'
+    $proxy_cache_min_uses = 1
+    $proxy_cache_lock = 'off'
+    $proxy_cache_key = '$scheme$proxy_host$request_uri'
+
     $proxy_set_header = [
         'Host $host',
         'X-Real-IP $remote_addr',

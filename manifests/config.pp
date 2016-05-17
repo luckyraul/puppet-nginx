@@ -33,7 +33,13 @@ class nginx::config (
     $gzip_disable                  = $nginx::gzip_disable,
     $gzip_vary                     = $nginx::gzip_vary,
     $gzip_comp_level               = $nginx::gzip_comp_level,
-    $gzip_types                    = $nginx::gzip_types
+    $gzip_types                    = $nginx::gzip_types,
+    $proxy_cache_path              = $nginx::proxy_cache_path,
+    $proxy_cache_use_stale         = $nginx::proxy_cache_use_stale,
+    $proxy_cache_revalidate        = $nginx::proxy_cache_revalidate,
+    $proxy_cache_min_uses          = $nginx::proxy_cache_min_uses,
+    $proxy_cache_lock              = $nginx::proxy_cache_lock,
+    $proxy_cache_key               = $nginx::proxy_cache_key,
 ) inherits nginx::params
 {
 

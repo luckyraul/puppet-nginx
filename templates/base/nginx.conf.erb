@@ -63,6 +63,19 @@ http {
     # gzip_http_version 1.1;
     # gzip_proxied any;
 
+
+    ##
+    # Proxy Settings
+    ##
+<% if @worker_rlimit_nofile -%>
+    proxy_cache_path <%= @proxy_cache_path %>;
+<% end -%>
+    proxy_cache_use_stale <%= @proxy_cache_use_stale %>;
+    proxy_cache_revalidate <%= @proxy_cache_revalidate %>;
+    proxy_cache_min_uses <%= @proxy_cache_min_uses %>;
+    proxy_cache_lock <%= @proxy_cache_lock %>;
+    proxy_cache_key <%= @proxy_cache_key %>;
+
     include /etc/nginx/mime.types;
     default_type application/octet-stream;
 
