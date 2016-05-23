@@ -5,7 +5,8 @@
 #   02 - listen
 #
 #
-#   50 - body
+#   50 - body directory
+#   51 - body proxy
 #
 #   70 - locations
 #
@@ -134,13 +135,22 @@ define nginx::resources::vhost (
             create_resources('nginx::resources::location', $locations, $nginx_location_defaults)
         }
 
-        if($proxy){
+        if($root_folder){
           concat::fragment { "${main_domain}-body":
               target  => $conf_file,
-              content => template('nginx/vhost/proxy.erb'),
+              content => template('nginx/vhost/directory.erb'),
               order   => '50',
           }
         }
+
+        if($proxy){
+          concat::fragment { "${main_domain}-proxy":
+              target  => $conf_file,
+              content => template('nginx/vhost/proxy.erb'),
+              order   => '51',
+          }
+        }
+
         concat::fragment { "${main_domain}-footer":
             target  => $conf_file,
             content => template('nginx/vhost/parts/footer.erb'),
