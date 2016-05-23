@@ -52,6 +52,8 @@ define nginx::resources::vhost (
     $locations         = {},
     $template          = undef,
     $type              = undef,
+
+    $external          = false,
 )
 {
     validate_array($domains)
@@ -154,7 +156,9 @@ define nginx::resources::vhost (
                 path    => '/bin',
                 unless  => "/bin/readlink -e /etc/nginx/sites-enabled/${main_domain}",
             }
-            Class['nginx::config'] -> Exec["enable_${main_domain}"] ~> Service['nginx']
+            if(!$external) {
+              Class['nginx::config'] -> Exec["enable_${main_domain}"] ~> Service['nginx']
+            }
         }
         'absent': {
             exec { "disable_${main_domain}":
@@ -162,7 +166,9 @@ define nginx::resources::vhost (
                 path    => '/bin',
                 onlyif  => "/bin/readlink -e /etc/nginx/sites-enabled/${main_domain}",
             }
-            Class['nginx::config'] -> Exec["disable_${main_domain}"] ~> Service['nginx']
+            if(!$external) {
+              Class['nginx::config'] -> Exec["disable_${main_domain}"] ~> Service['nginx']
+            }
         }
         default: { err ( "Unknown ensure value: '${ensure}'" ) }
     }
