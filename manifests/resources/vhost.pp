@@ -28,6 +28,7 @@ define nginx::resources::vhost (
 
     ### SSL
     $ssl               = false,
+    $ssl_port          = 443,
     $ssl_only          = false,
     $ssl_cert          = undef,
     $ssl_key           = undef,
