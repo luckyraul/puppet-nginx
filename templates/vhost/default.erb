@@ -1,4 +1,5 @@
 server {
+    server_name _;
     <%
         if @interfaces.count(',') > 1 then
             @interfaces.split(',').each do |int|
