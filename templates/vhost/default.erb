@@ -1,22 +1,12 @@
 server {
     server_name _;
-    <%
-        if @interfaces.count(',') > 1 then
-            @interfaces.split(',').each do |int|
-                if has_variable?("ipaddress_#{int}") then
-                    -%>	listen <%= scope.lookupvar("ipaddress_#{int}") %>:<%= @default_port %> default_server;
-    <%
-                end
-            end
-        else
-            -%>listen <%= @default_port %> default_server;
-    <%
-        end
-        -%>
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
+    root   /usr/share/nginx/html;
     location / {
-        root   /usr/share/nginx/html;
         index  index.html index.htm;
+        try_files $uri $uri/ =404;
     }
 
     location /nginx_status {
