@@ -4,6 +4,7 @@ worker_processes <%= @processorcount %>;
 worker_rlimit_nofile <%= @worker_rlimit_nofile %>;
 <% end -%>
 pid <%= @daemon_pid %>;
+include /etc/nginx/modules-enabled/*.conf;
 
 events {
     worker_connections <%= @worker_connections %>;
