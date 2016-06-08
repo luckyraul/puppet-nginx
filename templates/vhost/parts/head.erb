@@ -55,7 +55,7 @@ server {
   ssl_certificate      <%= @ssl_cert %>;
   ssl_certificate_key  <%= @ssl_key  %>;
   include includes/ssl;
-  <% if @ssl_only -%>
+  <% if @rewrite_to_https -%>
   if ($ssl_protocol = "") {
        return 301 https://$host<% if @ssl_port.to_i != 443 %>:<%= @ssl_port %><% end %>$request_uri;
   }

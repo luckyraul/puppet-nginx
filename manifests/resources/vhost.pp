@@ -47,6 +47,7 @@ define nginx::resources::vhost (
     ### REWRITE
     $rewrite_www_to_non_www  = false,
     $rewrite_non_www_to_www  = false,
+    $rewrite_to_https        = false,
 
     ### ADDITIONS
     $includes          = [],
