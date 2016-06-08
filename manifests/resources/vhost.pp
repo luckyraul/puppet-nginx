@@ -95,6 +95,10 @@ define nginx::resources::vhost (
       fail('www <-> non www loooop')
     }
 
+    if($rewrite_to_https and $ssl_only)
+    {
+      fail('choose beetween https <-> http with https redirect')
+    }
     validate_bool($http_auth)
     if ($http_auth) {
         validate_string($http_auth_file)
