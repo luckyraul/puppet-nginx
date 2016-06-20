@@ -100,7 +100,7 @@ define nginx::resources::vhost (
     {
       fail('choose beetween https <-> http with https redirect')
     }
-    
+
     if ($http_auth != undef) {
         validate_string($http_auth_file)
     }
@@ -121,7 +121,7 @@ define nginx::resources::vhost (
           content => $http_auth_file_content
         }
       } else {
-        file {"/etc/nginx/htpasswd/${http_auth_file}":
+        file {"/etc/nginx/${http_auth_file}":
           ensure  => $ensure,
           content => $http_auth_file_content
         }
