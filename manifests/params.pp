@@ -6,7 +6,7 @@ class nginx::params {
     $service_enable = true
     $daemon_user = 'www-data'
     $daemon_pid = '/var/run/nginx.pid'
-    $default_directories = ['/etc/nginx/sites-enabled','/etc/nginx/sites-available','/etc/nginx/ssl','/etc/nginx/geoip','/etc/nginx/includes']
+    $default_directories = ['/etc/nginx/sites-enabled','/etc/nginx/sites-available','/etc/nginx/ssl','/etc/nginx/geoip','/etc/nginx/includes','/etc/nginx/htpasswd']
 
     $worker_connections = 1024
     $multi_accept = 'on'

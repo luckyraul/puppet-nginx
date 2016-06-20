@@ -14,49 +14,50 @@
 #
 #   95 - upstreams
 define nginx::resources::vhost (
-    $root_folder       = undef,
-    $domains           = ['_'],
-    $ensure            = 'present',
-    $listen_ip         = '*',
-    $listen_port       = 80,
+    $root_folder            = undef,
+    $domains                = ['_'],
+    $ensure                 = 'present',
+    $listen_ip              = '*',
+    $listen_port            = 80,
 
     ### IPv6
-    $listen_v6         = false,
-    $listen_v6_ip      = '::',
-    $listen_v6_port    = 80,
-    $listen_v6_options = 'default ipv6only=on',
+    $listen_v6              = false,
+    $listen_v6_ip           = '::',
+    $listen_v6_port         = 80,
+    $listen_v6_options      = 'default ipv6only=on',
 
     ### SSL
-    $ssl               = false,
-    $ssl_port          = 443,
-    $ssl_only          = false,
-    $ssl_cert          = undef,
-    $ssl_key           = undef,
-    $http2             = false,
+    $ssl                    = false,
+    $ssl_port               = 443,
+    $ssl_only               = false,
+    $ssl_cert               = undef,
+    $ssl_key                = undef,
+    $http2                  = false,
 
     ### HTTP AUTH
-    $http_auth         = false,
-    $http_auth_file    = '.htpasswd',
-    $http_auth_url     = '/',
+    $http_auth              = undef,
+    $http_auth_file         = '.htpasswd',
+    $http_auth_url          = '/',
+    $http_auth_file_content = undef,
 
     ### PROXY
-    $proxy             = undef,
-    $proxy_headers     = $nginx::proxy_set_header,
-    $proxy_read_timeout = undef,
+    $proxy                  = undef,
+    $proxy_headers          = $nginx::proxy_set_header,
+    $proxy_read_timeout     = undef,
 
     ### REWRITE
-    $rewrite_www_to_non_www  = false,
-    $rewrite_non_www_to_www  = false,
-    $rewrite_to_https        = false,
+    $rewrite_www_to_non_www = false,
+    $rewrite_non_www_to_www = false,
+    $rewrite_to_https       = false,
 
     ### ADDITIONS
-    $includes          = [],
-    $upstreams         = {},
-    $locations         = {},
-    $template          = undef,
-    $type              = undef,
+    $includes               = [],
+    $upstreams              = {},
+    $locations              = {},
+    $template               = undef,
+    $type                   = undef,
 
-    $external          = false,
+    $external               = false,
 )
 {
     validate_array($domains)
@@ -99,8 +100,8 @@ define nginx::resources::vhost (
     {
       fail('choose beetween https <-> http with https redirect')
     }
-    validate_bool($http_auth)
-    if ($http_auth) {
+    
+    if ($http_auth != undef) {
         validate_string($http_auth_file)
     }
 
@@ -111,6 +112,21 @@ define nginx::resources::vhost (
 
     $main_domain = $domains[0]
     $conf_file = "/etc/nginx/sites-available/${main_domain}"
+
+
+    if($http_auth != undef and $http_auth_file_content != undef) {
+      if(is_absolute_path($http_auth_file)) {
+        file {$http_auth_file:
+          ensure  => $ensure,
+          content => $http_auth_file_content
+        }
+      } else {
+        file {"/etc/nginx/htpasswd/${http_auth_file}":
+          ensure  => $ensure,
+          content => $http_auth_file_content
+        }
+      }
+    }
 
     if($template) {
         file { $conf_file:
