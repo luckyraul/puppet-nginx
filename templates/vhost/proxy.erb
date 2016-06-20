@@ -2,7 +2,7 @@
 <%- if @http_auth -%>
     auth_basic "<%= @http_auth %>";
 <% end -%>
-<%- if @http_auth_file -%>
+<%- if @http_auth && @http_auth_file -%>
     auth_basic_user_file <%= @http_auth_file %>;
 <% end -%>
     proxy_pass <%= @proxy %>;
