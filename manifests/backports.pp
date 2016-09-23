@@ -14,7 +14,7 @@ class nginx::backports(
 
     apt::pin { 'backports_nginx':
       ensure   => $ensure,
-      packages => [$nginx::package_name,'nginx-common'],
+      packages => [$nginx::package_name,'nginx-common','libssl1.0.0'],
       priority => 500,
       release  => "${::lsbdistcodename}-backports",
     }
