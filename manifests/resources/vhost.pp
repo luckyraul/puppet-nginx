@@ -36,6 +36,7 @@ define nginx::resources::vhost (
 
     ### HTTP AUTH
     $http_auth              = undef,
+    $http_auth_var          = 'Restricted',
     $http_auth_file         = '.htpasswd',
     $http_auth_url          = '/',
     $http_auth_file_content = undef,

@@ -3,7 +3,7 @@
         <% if @http_auth && @http_auth_url == '/' %>satisfy any;
         allow 127.0.0.1;
         deny  all;
-        auth_basic "Restricted";
+        auth_basic <%= @http_auth_var %>;
         auth_basic_user_file  <%= @root_folder%><%= @http_auth_file %>;
         <% end %>
         index index.html;
