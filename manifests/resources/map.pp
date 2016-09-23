@@ -1,12 +1,14 @@
 # define: nginx::resource::map
 define nginx::resources::map (
     $key,
+    $var,
     $mappings,
     $ensure = 'present',
     $default = undef,
 )
 {
     validate_string($key)
+    validate_string($var)
     validate_hash($mappings)
     if ($default != undef) { validate_string($default) }
 
