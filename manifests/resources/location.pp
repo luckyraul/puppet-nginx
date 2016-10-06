@@ -4,6 +4,7 @@ define nginx::resources::location (
   $domain,
   $location = undef,
   $config = undef,
+  $extra_cfg = undef,
 )
 {
   validate_string($location)
