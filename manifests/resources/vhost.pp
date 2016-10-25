@@ -155,6 +155,11 @@ define nginx::resources::vhost (
             create_resources('nginx::resources::upstream', $upstreams, $nginx_upstream_defaults)
         }
 
+        if($locations) {
+            $nginx_location_defaults = {'file' => $conf_file, 'domain' => $main_domain}
+            create_resources('nginx::resources::location', $locations, $nginx_location_defaults)
+        }
+
         if($error_pages) {
           concat::fragment { "${main_domain}-error_pages":
               target  => $conf_file,
