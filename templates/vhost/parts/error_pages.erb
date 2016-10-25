@@ -1,0 +1,5 @@
+<% if @error_pages -%>
+  <%- @error_pages.keys.sort.each do |key| -%>
+  error_page  <%= key %> <%= @error_pages[key] %>;
+  <%- end -%>
+<% end -%>
