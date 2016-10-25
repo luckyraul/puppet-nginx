@@ -45,6 +45,10 @@ define nginx::resources::vhost (
     $proxy                  = undef,
     $proxy_headers          = $nginx::proxy_set_header,
     $proxy_read_timeout     = undef,
+    $proxy_limit_req        = undef,
+    $proxy_limit_req_burst  = undef,
+    $proxy_limit_req_delay  = undef,
+    $proxy_limit_req_status = undef,
 
     ### REWRITE
     $rewrite_www_to_non_www = false,
