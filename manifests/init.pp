@@ -65,6 +65,7 @@ class nginx (
     $nginx_vhosts                  = {},
     $nginx_vhosts_defaults         = {require => Class['nginx::config']},
     $nginx_maps                    = {},
+    $nginx_limit_zones             = {},
 
     ) inherits nginx::params
 {
@@ -85,6 +86,7 @@ class nginx (
     class { 'nginx::packages': } -> class { 'nginx::config': } ~> class { 'nginx::service': }
 
     create_resources('nginx::resources::map', $nginx_maps, {require => Class['nginx::config'], notify  => Class['nginx::service']})
+    create_resources('nginx::resources::limit_zone', $nginx_limit_zones, {require => Class['nginx::config'], notify  => Class['nginx::service']})
     create_resources('nginx::resources::vhost', $nginx_vhosts, $nginx_vhosts_defaults)
 
     anchor { 'nginx::begin':
