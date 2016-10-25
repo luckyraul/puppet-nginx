@@ -26,6 +26,6 @@ define nginx::resources::limit_zone (
         ensure  => $ensure_real,
         owner   => 'root',
         mode    => '0644',
-        content => "limit_${type}_zone ${key} zone=${name}:${size}${rate_real}",
+        content => "limit_${type}_zone ${key} zone=${name}:${size}${rate_real};",
     }
 }
