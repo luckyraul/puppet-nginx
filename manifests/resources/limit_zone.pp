@@ -12,7 +12,7 @@ define nginx::resources::limit_zone (
     validate_string($size)
     if ($rate != undef) {
       validate_string($rate)
-      $rate_real = " ${rate}"
+      $rate_real = " rate=${rate}"
     } else {
       $rate_real = ''
     }
