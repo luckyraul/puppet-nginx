@@ -7,7 +7,7 @@
 <% end -%>
     proxy_pass <%= @proxy %>;
 <% if @proxy_limit_req -%>
-    limit_req zone=<%= @proxy_limit_req %><% if @proxy_limit_req_burst -%> burst=<%= proxy_limit_req_burst %><% end -%><% if @proxy_limit_req_delay -%> nodelay<% end -%>;
+    limit_req zone=<%= @proxy_limit_req %><% if @proxy_limit_req_burst -%> burst=<%= @proxy_limit_req_burst %><% end -%><% if @proxy_limit_req_delay -%> nodelay<% end -%>;
 <% end -%>
 <% if @proxy_limit_req_status -%>
     limit_req_status=<%= @proxy_limit_req_status %>;
