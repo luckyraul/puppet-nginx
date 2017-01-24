@@ -32,6 +32,10 @@ define nginx::resources::vhost (
     $ssl_only               = false,
     $ssl_cert               = undef,
     $ssl_key                = undef,
+    $ssl_stapling           = false,
+    $ssl_stapling_verify    = false,
+    $ssl_resolver           = '8.8.8.8 8.8.4.4',
+    $ssl_root               = undef,
     $http2                  = false,
 
     ### HTTP AUTH

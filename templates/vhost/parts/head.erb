@@ -55,6 +55,17 @@ server {
   ssl_certificate      <%= @ssl_cert %>;
   ssl_certificate_key  <%= @ssl_key  %>;
   include includes/ssl;
+
+  <% if @ssl_stapling -%>
+  ssl_stapling on;
+  <% if @ssl_stapling_verify -%>
+  ssl_stapling_verify on;
+  ssl_trusted_certificate <%= @ssl_root %>;
+  <% end -%>
+  resolver <%= @ssl_resolver %> valid=300s;
+  resolver_timeout 5s;
+  <% end -%>
+
   <% if @rewrite_to_https -%>
   if ($ssl_protocol = "") {
        return 301 https://$host<% if @ssl_port.to_i != 443 %>:<%= @ssl_port %><% end %>$request_uri;
