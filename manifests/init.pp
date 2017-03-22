@@ -67,6 +67,9 @@ class nginx (
     $nginx_maps                    = {},
     $nginx_limit_zones             = {},
 
+    #### Docker
+    $docker                        = false,
+
     ) inherits nginx::params
 {
 
@@ -96,6 +99,15 @@ class nginx (
 
     anchor { 'nginx::end':
         require => Class['nginx::service'],
+    }
+
+    if $docker {
+        file {'/entrypoint.sh':
+            owner   => root,
+            group   => root,
+            mode    => '0755',
+            content => template('nginx/docker/entrypoint.sh.erb'),
+        }
     }
 
 }

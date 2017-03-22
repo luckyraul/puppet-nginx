@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+if [[ "x"$NGINX_USER != "x" ]]; then
+  usermod -u $NGINX_USER www-data
+  groupmod -g $NGINX_USER www-data
+fi
+exec "$@"
