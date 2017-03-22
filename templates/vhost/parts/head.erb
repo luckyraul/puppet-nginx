@@ -56,15 +56,15 @@ server {
   ssl_certificate_key  <%= @ssl_key  %>;
   include includes/ssl;
 
-  <% if @ssl_stapling -%>
+  <%- if @ssl_stapling -%>
   ssl_stapling on;
-  <% if @ssl_stapling_verify -%>
+  <%- if @ssl_stapling_verify -%>
   ssl_stapling_verify on;
   ssl_trusted_certificate <%= @ssl_root %>;
-  <% end -%>
+  <%- end -%>
   resolver <%= @ssl_resolver %> valid=300s;
   resolver_timeout 5s;
-  <% end -%>
+  <%- end -%>
 
   <% if @rewrite_to_https -%>
   if ($ssl_protocol = "") {
