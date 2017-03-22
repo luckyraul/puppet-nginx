@@ -4,6 +4,7 @@ class nginx::config (
     $default_server                = $nginx::default_server,
     $default_port                  = $nginx::default_port,
     $default_directories           = $nginx::params::default_directories,
+    $daemon_mode                   = $nginx::daemon_mode,
     $daemon_user                   = $nginx::daemon_user,
     $daemon_pid                    = $nginx::daemon_pid,
     $worker_connections            = $nginx::worker_connections,

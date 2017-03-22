@@ -21,6 +21,7 @@ class nginx (
     $dotdeb                        = false,
     $default_server                = true,
     $default_port                  = 80,
+    $daemon_mode                   = $nginx::params::daemon_mode,
     $daemon_user                   = $nginx::params::daemon_user,
     $daemon_pid                    = $nginx::params::daemon_pid,
     $worker_connections            = $nginx::params::worker_connections,

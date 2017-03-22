@@ -5,6 +5,7 @@ class nginx::params {
     $service_restart = '/etc/init.d/nginx reload'
     $service_enable = true
     $daemon_user = 'www-data'
+    $daemon_mode = 'on'
     $daemon_pid = '/var/run/nginx.pid'
     $default_directories = ['/etc/nginx/sites-enabled','/etc/nginx/conf.d','/etc/nginx/sites-available','/etc/nginx/ssl','/etc/nginx/geoip','/etc/nginx/includes','/etc/nginx/htpasswd']
 
