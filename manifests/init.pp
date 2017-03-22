@@ -109,6 +109,17 @@ class nginx (
             mode    => '0755',
             content => template('nginx/docker/entrypoint.sh.erb'),
         }
-    }
 
+        file {$access_log:
+          ensure => 'link',
+          target => '/dev/stdout',
+          require => Class['nginx::packages'],
+        }
+
+        file {$error_log:
+          ensure => 'link',
+          target => '/dev/stderr',
+          require => Class['nginx::packages'],
+        }
+    }
 }
