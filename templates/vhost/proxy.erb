@@ -15,8 +15,8 @@
 <% if @proxy_read_timeout -%>
     proxy_read_timeout <%= @proxy_read_timeout %>;
 <% end -%>
-<% unless @proxy_set_header.nil? -%>
-    <%- @proxy_set_header.each do |header| -%>
+<% unless @proxy_headers.nil? -%>
+    <%- @proxy_headers.each do |header| -%>
     proxy_set_header <%= header %>;
     <%- end -%>
 <% end -%>
