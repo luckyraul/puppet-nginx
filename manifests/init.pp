@@ -60,7 +60,6 @@ class nginx (
     $proxy_cache_min_uses          = $nginx::params::proxy_cache_min_uses,
     $proxy_cache_lock              = $nginx::params::proxy_cache_lock,
     $proxy_cache_key               = $nginx::params::proxy_cache_key,
-    $proxy_set_header              = $nginx::params::proxy_set_header,
 
     ### HIERA ###
     $nginx_vhosts                  = {},
