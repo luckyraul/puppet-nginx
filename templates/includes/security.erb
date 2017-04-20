@@ -1,0 +1,10 @@
+# Block hidden files
+location ~ /\.  { return 404; }
+
+# Block sql dumps
+location ~* \.(sql)$ {return 404;}
+
+# Block access to dev files
+location ^~ /config/deploy.rb   {return 404;}
+location ~* (auth|bower|package|composer)\.(json|lock)$ { return 404; }
+location ~* (Gemfile|Gemfile.lock|gruntfile.js|gulpfile.js|Dockerfile|docker-compose.yml)$ { return 404; }

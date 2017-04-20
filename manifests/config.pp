@@ -94,9 +94,11 @@ class nginx::config (
         content => template('nginx/includes/ssl.erb'),
     }
 
-    if ! defined(File['/var/www']) {
-        file {'/var/www':
-            ensure => directory,
-        }
+    file { '/etc/nginx/includes/security':
+        ensure  => present,
+        require => File[$default_directories],
+        content => template('nginx/includes/security.erb'),
     }
+
+    ensure_resource('file', '/var/www', {'ensure' => 'directory' })
 }
