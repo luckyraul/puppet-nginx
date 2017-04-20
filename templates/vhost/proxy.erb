@@ -10,7 +10,7 @@
     limit_req zone=<%= @proxy_limit_req %><% if @proxy_limit_req_burst -%> burst=<%= @proxy_limit_req_burst %><% end -%><% if @proxy_limit_req_delay -%> nodelay<% end -%>;
 <% end -%>
 <% if @proxy_limit_req_status -%>
-    limit_req_status=<%= @proxy_limit_req_status %>;
+    limit_req_status <%= @proxy_limit_req_status %>;
 <% end -%>
 <% if @proxy_read_timeout -%>
     proxy_read_timeout <%= @proxy_read_timeout %>;
