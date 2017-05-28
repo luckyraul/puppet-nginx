@@ -1,2 +1,5 @@
 
   root <%= @root_folder %>;
+<% if @index_files and @index_files.count > 0 -%>
+  index <% Array(@index_files).each do |i| %> <%= i %><% end %>;
+<% end -%>

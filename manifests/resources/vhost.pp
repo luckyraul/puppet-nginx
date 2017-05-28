@@ -60,6 +60,7 @@ define nginx::resources::vhost (
     $rewrite_to_https       = false,
 
     ### ADDITIONS
+    $index_files            = [],
     $includes               = [],
     $error_pages            = {},
     $upstreams              = {},
