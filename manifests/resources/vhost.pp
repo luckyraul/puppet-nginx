@@ -40,10 +40,13 @@ define nginx::resources::vhost (
 
     ### HTTP AUTH
     $http_auth              = undef,
-    $http_auth_var          = '"Restricted"',
+    $http_auth_var          = 'Restricted',
     $http_auth_file         = '.htpasswd',
     $http_auth_url          = '/',
     $http_auth_file_content = undef,
+    $http_auth_allow        = ['127.0.0.1'],
+    $http_auth_deny         = ['all'],
+    $http_auth_satisfy      = 'any',
 
     ### PROXY
     $proxy                  = undef,
@@ -164,9 +167,25 @@ define nginx::resources::vhost (
             create_resources('nginx::resources::upstream', $upstreams, $nginx_upstream_defaults)
         }
 
+        if($http_auth and $http_auth_url == '/') {
+          $auth_locations = {
+            "${main_domain}-root"      => {
+              location          => '/',
+              http_auth         => true,
+              http_auth_var     => $http_auth_var,
+              http_auth_file    => $http_auth_file,
+              http_auth_allow   => $http_auth_allow,
+              http_auth_deny    => $http_auth_deny,
+              http_auth_satisfy => $http_auth_satisfy
+            },
+          }
+        } else {
+          $auth_locations = {}
+        }
+
         if($locations) {
             $nginx_location_defaults = {'file' => $conf_file, 'domain' => $main_domain}
-            create_resources('nginx::resources::location', $locations, $nginx_location_defaults)
+            create_resources('nginx::resources::location', deep_merge($auth_locations, $locations), $nginx_location_defaults)
         }
 
         if($error_pages) {

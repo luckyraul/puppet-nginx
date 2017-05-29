@@ -1,4 +1,26 @@
   location <%= @location %> {
+<% if @internal -%>
+    internal;
+<% end -%>
+<% if @http_auth and @http_auth_satisfy -%>
+    satisfy <%= @http_auth_satisfy -%>;
+<% end -%>
+<% if @http_auth and @http_auth_allow -%>
+    <%- @http_auth_allow.each do |allow_rule| -%>
+    allow <%= allow_rule %>;
+    <%- end -%>
+<% end -%>
+<% if @http_auth and @http_auth_deny -%>
+    <%- @http_auth_deny.each do |deny_rule| -%>
+    deny <%= deny_rule %>;
+    <%- end -%>
+<% end -%>
+<% if @http_auth and @http_auth_var -%>
+    auth_basic           "<%= @http_auth_var %>";
+<% end -%>
+<%- if @http_auth and @http_auth_file -%>
+    auth_basic_user_file <%= @http_auth_file %>;
+<% end -%>
 <%- @config.sort_by {|k,v| k}.each do |key,value| -%>
   <%- if value.is_a?(Hash) -%>
     <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>

@@ -2,9 +2,16 @@
 define nginx::resources::location (
   $file,
   $domain,
-  $location = undef,
-  $config = undef,
-  $extra_cfg = undef,
+  $location          = undef,
+  $config            = undef,
+  $extra_cfg         = undef,
+  $internal          = false,
+  $http_auth         = false,
+  $http_auth_file    = undef,
+  $http_auth_var     = undef,
+  $http_auth_allow   = undef,
+  $http_auth_deny    = undef,
+  $http_auth_satisfy = undef,
 )
 {
   validate_string($location)
