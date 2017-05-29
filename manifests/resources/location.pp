@@ -3,7 +3,7 @@ define nginx::resources::location (
   $file,
   $domain,
   $location          = undef,
-  $config            = undef,
+  $config            = {},
   $extra_cfg         = undef,
   $internal          = false,
   $http_auth         = false,
