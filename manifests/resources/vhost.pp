@@ -167,7 +167,7 @@ define nginx::resources::vhost (
             create_resources('nginx::resources::upstream', $upstreams, $nginx_upstream_defaults)
         }
 
-        if($http_auth and $http_auth_url == '/') {
+        if(!$proxy and $http_auth and $http_auth_url == '/') {
           $auth_locations = {
             "${main_domain}-root"      => {
               location          => '/',
