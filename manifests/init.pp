@@ -17,7 +17,7 @@ class nginx (
     $service_enable                = $nginx::params::service_enable,
     $service_restart               = $nginx::params::service_restart,
     $package_name                  = $nginx::params::package_name,
-    $backports                     = true,
+    $backports                     = false,
     $dotdeb                        = false,
     $default_server                = true,
     $default_port                  = 80,
@@ -110,14 +110,14 @@ class nginx (
         }
 
         file {$access_log:
-          ensure => 'link',
-          target => '/dev/stdout',
+          ensure  => 'link',
+          target  => '/dev/stdout',
           require => Class['nginx::packages'],
         }
 
         file {$error_log:
-          ensure => 'link',
-          target => '/dev/stderr',
+          ensure  => 'link',
+          target  => '/dev/stderr',
           require => Class['nginx::packages'],
         }
     }

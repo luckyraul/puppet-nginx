@@ -12,9 +12,23 @@ class nginx::backports(
     include apt
     include apt::backports
 
+    case $::lsbdistcodename {
+        'jessie': {
+            apt::pin { 'backports_ssl':
+              ensure   => $ensure,
+              packages => ['libssl1.0.0'],
+              priority => 500,
+              release  => "${::lsbdistcodename}-backports",
+            }
+        }
+        default: {
+
+        }
+    }
+
     apt::pin { 'backports_nginx':
       ensure   => $ensure,
-      packages => [$nginx::package_name,'nginx-common','libssl1.0.0'],
+      packages => [$nginx::package_name,'nginx-common'],
       priority => 500,
       release  => "${::lsbdistcodename}-backports",
     }

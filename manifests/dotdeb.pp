@@ -1,10 +1,10 @@
 # == Class: nginx::dotdeb
 class nginx::dotdeb(
-    $location = 'http://packages.dotdeb.org',
+    $location = 'https://packages.dotdeb.org',
     $repos    = 'all',
     $key      = {
         'id'     => '6572BBEF1B5FF28B28B706837E3F070089DF5277',
-        'source' => 'http://www.dotdeb.org/dotdeb.gpg',
+        'source' => 'https://www.dotdeb.org/dotdeb.gpg',
     },
 )
 {
