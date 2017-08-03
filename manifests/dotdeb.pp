@@ -8,6 +8,8 @@ class nginx::dotdeb(
     },
 )
 {
+    ensure_packages(['apt-transport-https'], {'ensure' => 'present'})
+
     include apt
     create_resources(::apt::key, { 'nginx::dotdeb' => {
         id => $key['id'], source => $key['source'],
