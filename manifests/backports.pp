@@ -34,6 +34,7 @@ class nginx::backports(
             'libnginx-mod-http-geoip',
             'libnginx-mod-http-headers-more-filter',
             'libnginx-mod-http-image-filter',
+            'libnginx-mod-http-ndk',
             'libnginx-mod-http-lua',
             'libnginx-mod-http-perl',
             'libnginx-mod-http-subs-filter',
