@@ -52,7 +52,7 @@ class nginx::backports(
 
     apt::pin { 'backports_nginx':
       ensure   => $ensure,
-      packages => [$nginx::package_name,'nginx-common'],
+      packages => $pin_package,
       priority => 500,
       release  => "${::lsbdistcodename}-backports",
     }
