@@ -50,6 +50,13 @@ server {
   listen <%= @listen_ip %>:<%= @listen_port %>;
   <%- end -%>
   <%- end -%>
+
+  <% if @variables -%>
+    <%- @variables.keys.sort.each do |key| -%>
+    set <%= key %> <%= @variables[key] %>;
+    <%- end -%>
+  <% end -%>
+
   <%- if @ssl -%>
   listen <%= @listen_ip %>:<%= @ssl_port %> ssl<%- if @http2 -%> http2<% end %>;
   ssl_certificate      <%= @ssl_cert %>;
@@ -78,4 +85,7 @@ server {
   server_name <%= @domains.collect{|d| 'www.'+d.to_s.gsub(/^www\./, '')}.join(' ') %>;
   <%- else -%>
   server_name <%= @domains.collect{|d| d +' www.'+d.to_s}.join(' ') %>;
+  <%- end -%>
+  <%- if @charset -%>
+  charset <%= @charset %>;
   <%- end -%>

@@ -65,11 +65,13 @@ define nginx::resources::vhost (
     ### ADDITIONS
     $index_files            = [],
     $includes               = [],
+    $variables              = [],
     $error_pages            = {},
     $upstreams              = {},
     $locations              = {},
     $template               = undef,
     $type                   = undef,
+    $charset                = undef,
 
     $external               = false,
 )
