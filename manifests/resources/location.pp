@@ -4,6 +4,7 @@ define nginx::resources::location (
   $domain,
   $location          = undef,
   $config            = {},
+  $locations         = [],
   $extra_cfg         = undef,
   $internal          = false,
   $http_auth         = false,
