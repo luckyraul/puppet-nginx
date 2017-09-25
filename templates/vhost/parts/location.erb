@@ -21,7 +21,7 @@
 <%- if @http_auth and @http_auth_file -%>
     auth_basic_user_file <%= @http_auth_file %>;
 <% end -%>
-<%- Array(value).each do |lvalue| -%>
+<%- Array(@locations).each do |lvalue| -%>
     location <%= @lvalue['location'] %> {
       <%- @lvalue['config'].sort_by {|k,v| k}.each do |key,value| -%>
         <%- if value.is_a?(Hash) -%>
