@@ -22,8 +22,8 @@
     auth_basic_user_file <%= @http_auth_file %>;
 <% end -%>
 <%- Array(@locations).each do |lvalue| -%>
-    location <%= @lvalue['location'] %> {
-      <%- @lvalue['config'].sort_by {|k,v| k}.each do |key,value| -%>
+    location <%= lvalue['location'] %> {
+      <%- lvalue['config'].sort_by {|k,v| k}.each do |key,value| -%>
         <%- if value.is_a?(Hash) -%>
           <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
             <%- Array(subvalue).each do |asubvalue| -%>
