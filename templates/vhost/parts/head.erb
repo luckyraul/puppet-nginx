@@ -52,9 +52,9 @@ server {
   <%- end -%>
 
   <% if @variables -%>
-    <%- @variables.keys.sort.each do |key| -%>
+  <%- @variables.keys.sort.each do |key| -%>
     set <%= key %> <%= @variables[key] %>;
-    <%- end -%>
+  <%- end -%>
   <% end -%>
 
   <%- if @ssl -%>
@@ -85,7 +85,4 @@ server {
   server_name <%= @domains.collect{|d| 'www.'+d.to_s.gsub(/^www\./, '')}.join(' ') %>;
   <%- else -%>
   server_name <%= @domains.collect{|d| d +' www.'+d.to_s}.join(' ') %>;
-  <%- end -%>
-  <%- if @charset -%>
-  charset <%= @charset %>;
   <%- end -%>

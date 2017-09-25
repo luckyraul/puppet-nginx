@@ -69,12 +69,14 @@ define nginx::resources::vhost (
     $index_files            = [],
     $includes               = [],
     $variables              = [],
+    $headers                = [],
     $error_pages            = {},
     $upstreams              = {},
     $locations              = {},
     $template               = undef,
     $type                   = undef,
     $charset                = undef,
+    $autoindex              = undef,
 
     $external               = false,
 )

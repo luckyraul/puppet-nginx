@@ -3,3 +3,12 @@
 <% if @index_files and @index_files.count > 0 -%>
   index <% Array(@index_files).each do |i| %> <%= i %><% end %>;
 <% end -%>
+<%- if @charset -%>
+  charset <%= @charset %>;
+<%- end -%>
+<%- if @autoindex -%>
+  autoindex <%= @autoindex %>;
+<%- end -%>
+<% if @headers and @headers.count > 0 -%>
+  add_header <% Array(@headers).each do |i| %> <%= i %><% end %>;
+<% end -%>
