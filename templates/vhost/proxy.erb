@@ -15,6 +15,15 @@
 <% if @proxy_read_timeout -%>
     proxy_read_timeout <%= @proxy_read_timeout %>;
 <% end -%>
+<% if @proxy_sub_filter_once -%>
+    sub_filter_once <%= @proxy_sub_filter_once %>;
+<% end -%>
+<% if @proxy_sub_filter_types -%>
+    sub_filter_types <%= @proxy_sub_filter_types %>;
+<% end -%>
+<%- @proxy_sub_filter.each do |filter| -%>
+    sub_filter <%= filter %>;
+<% end -%>
 <% unless @proxy_headers.nil? -%>
     <%- @proxy_headers.each do |header| -%>
     proxy_set_header <%= header %>;

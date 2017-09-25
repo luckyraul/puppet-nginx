@@ -56,6 +56,9 @@ define nginx::resources::vhost (
     $proxy_limit_req_burst  = undef,
     $proxy_limit_req_delay  = undef,
     $proxy_limit_req_status = undef,
+    $proxy_sub_filter       = [],
+    $proxy_sub_filter_once  = undef,
+    $proxy_sub_filter_types = undef,
 
     ### REWRITE
     $rewrite_www_to_non_www = false,
