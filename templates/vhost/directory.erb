@@ -9,6 +9,8 @@
 <%- if @autoindex -%>
   autoindex <%= @autoindex %>;
 <%- end -%>
-<% if @headers and @headers.count > 0 -%>
-  add_header <% Array(@headers).each do |i| %> <%= i %><% end %>;
+<% if @headers -%>
+  <%- @headers.each do |i| -%>
+  add_header <%= i %>;
+  <%- end -%>
 <% end -%>
