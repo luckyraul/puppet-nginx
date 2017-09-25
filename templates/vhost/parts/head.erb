@@ -51,11 +51,11 @@ server {
   <%- end -%>
   <%- end -%>
 
-  <% if @variables -%>
-  <%- @variables.keys.sort.each do |key| -%>
-    set <%= key %> <%= @variables[key] %>;
-  <%- end -%>
-  <% end -%>
+<% if @variables -%>
+<%- @variables.keys.sort.each do |key| -%>
+  set <%= key %> <%= @variables[key] %>;
+<%- end -%>
+<% end -%>
 
   <%- if @ssl -%>
   listen <%= @listen_ip %>:<%= @ssl_port %> ssl<%- if @http2 -%> http2<% end %>;
