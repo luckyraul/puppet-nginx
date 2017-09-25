@@ -49,6 +49,9 @@
           <%- end -%>
         <%- end -%>
       <%- end -%>
+      <%- if lvalue['extra_cfg'] -%>
+        <%= lvalue['extra_cfg'] %>
+      <%- end -%>
     }
 <%- end -%>
 <%- if @extra_cfg -%>
