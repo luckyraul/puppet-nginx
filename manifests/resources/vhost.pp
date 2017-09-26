@@ -68,7 +68,7 @@ define nginx::resources::vhost (
     ### ADDITIONS
     $index_files            = [],
     $includes               = [],
-    $variables              = [],
+    $variables              = {},
     $headers                = [],
     $error_pages            = {},
     $upstreams              = {},
