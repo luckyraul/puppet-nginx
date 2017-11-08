@@ -77,6 +77,7 @@ define nginx::resources::vhost (
     $type                   = undef,
     $charset                = undef,
     $autoindex              = undef,
+    $extra_cfg              = undef,
 
     $external               = false,
 )
