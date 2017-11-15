@@ -5,6 +5,7 @@ define nginx::resources::map (
     $mappings,
     $ensure = 'present',
     $default = undef,
+    $hostnames = undef,
 )
 {
     validate_string($key)
