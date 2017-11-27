@@ -42,7 +42,7 @@ class nginx::params {
     $gzip_disable = 'msie6'
     $gzip_vary = 'on'
     $gzip_comp_level = 1
-    $gzip_types = ['text/plain','text/css','application/json','application/javascript','application/x-javascript','text/xml','application/xml','application/rss+xml','text/javascript','image/svg+xml','application/vnd.ms-fontobject','application/x-font-ttf','font/opentype']
+    $gzip_types = ['text/plain','text/css','application/json','application/javascript','application/x-javascript','text/xml','application/xml','application/rss+xml','text/javascript','image/svg+xml','application/vnd.ms-fontobject','application/x-font-ttf','font/opentype','image/x-icon']
 
 
     #proxy
