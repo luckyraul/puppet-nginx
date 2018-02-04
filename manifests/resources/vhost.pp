@@ -73,6 +73,7 @@ define nginx::resources::vhost (
     $error_pages            = {},
     $upstreams              = {},
     $locations              = {},
+    $try_files              = undef,
     $template               = undef,
     $type                   = undef,
     $charset                = undef,
