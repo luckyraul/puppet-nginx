@@ -6,6 +6,9 @@
     auth_basic_user_file <%= @http_auth_file %>;
 <% end -%>
     proxy_pass <%= @proxy %>;
+<% if @proxy_http_version -%>
+    proxy_http_version    <%= @proxy_http_version %>;
+<% end -%>
 <% if @proxy_limit_req -%>
     limit_req zone=<%= @proxy_limit_req %><% if @proxy_limit_req_burst -%> burst=<%= @proxy_limit_req_burst %><% end -%><% if @proxy_limit_req_delay -%> nodelay<% end -%>;
 <% end -%>

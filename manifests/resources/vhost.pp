@@ -51,6 +51,7 @@ define nginx::resources::vhost (
     ### PROXY
     $proxy                  = undef,
     $proxy_headers          = $nginx::params::proxy_set_header,
+    $proxy_http_version     = undef,
     $proxy_read_timeout     = undef,
     $proxy_limit_req        = undef,
     $proxy_limit_req_burst  = undef,
