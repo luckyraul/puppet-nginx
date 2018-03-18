@@ -19,6 +19,7 @@ define nginx::resources::vhost (
     $ensure                 = 'present',
     $listen_ip              = '*',
     $listen_port            = 80,
+    $listen_options         = undef,
 
     ### IPv6
     $listen_v6              = false,
