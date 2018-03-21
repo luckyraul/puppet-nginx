@@ -21,7 +21,7 @@
 <%- if @http_auth and @http_auth_file -%>
     auth_basic_user_file <%= @http_auth_file %>;
 <% end -%>
-<%- @config.sort_by {|k,v| k}.each do |key,value| -%>
+<%- @config.each do |key,value| -%>
   <%- if value.is_a?(Hash) -%>
     <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
       <%- Array(subvalue).each do |asubvalue| -%>
@@ -36,7 +36,7 @@
 <%- end -%>
 <%- Array(@locations).each do |lvalue| -%>
     location <%= lvalue['location'] %> {
-      <%- lvalue['config'].sort_by {|k,v| k}.each do |key,value| -%>
+      <%- lvalue['config'].each do |key,value| -%>
       <%- if value.is_a?(Hash) -%>
         <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
           <%- Array(subvalue).each do |asubvalue| -%>
