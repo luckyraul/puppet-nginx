@@ -61,6 +61,10 @@ class nginx::config (
             target => '/etc/nginx/sites-available/default',
         }
 
+        file { '/tmp/acme-challenge':
+            ensure => 'directory',
+        }
+
         File[$default_directories] -> File['/etc/nginx/sites-available/default'] -> File['/etc/nginx/sites-enabled/default']
 
     } else {
@@ -69,6 +73,10 @@ class nginx::config (
         }
         file { '/etc/nginx/sites-enabled/default':
             ensure  => absent,
+        }
+
+        file { '/tmp/acme-challenge':
+            ensure => 'absent',
         }
     }
 
@@ -98,6 +106,12 @@ class nginx::config (
         ensure  => present,
         require => File[$default_directories],
         content => template('nginx/includes/security.erb'),
+    }
+
+    file { '/etc/nginx/includes/acme':
+        ensure  => present,
+        require => File[$default_directories],
+        content => template('nginx/includes/acme.erb'),
     }
 
     ensure_resource('file', '/var/www', {'ensure' => 'directory' })
