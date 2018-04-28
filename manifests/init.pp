@@ -82,7 +82,7 @@ class nginx (
     if $dotdeb {
         class { 'nginx::dotdeb': } -> Anchor['nginx::begin']
     }
-    if $backports {
+    if $backports and ($::operatingsystem == 'Debian') {
         class { 'nginx::backports': } -> Anchor['nginx::begin']
     }
 
