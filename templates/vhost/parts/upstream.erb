@@ -1,4 +1,10 @@
 upstream <%= @name %> {
+<% if @ip_hash -%>
+    ip_hash;
+<% end -%>
+<% if @least_conn -%>
+    least_conn;
+<% end -%>
     <% @members.each do |s| %>
     server <%= s["url"] %><% if s["weight"] and s["weight"] > 1-%> weight=<%=s["weight"]%><% end %><% if s["backup"] -%> backup<% end %><% if s["down"] -%> down<% end %>;<% end %>
 }

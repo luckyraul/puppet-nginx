@@ -2,9 +2,11 @@
 define nginx::resources::upstream (
     $file,
     $domain,
-    $members = undef,
-    $ensure = 'present',
-    $context = 'http',
+    $members    = undef,
+    $ensure     = 'present',
+    $context    = 'http',
+    $ip_hash    = false,
+    $least_conn = false,
 )
 {
     if $members != undef {
