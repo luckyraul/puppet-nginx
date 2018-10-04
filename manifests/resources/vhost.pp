@@ -61,6 +61,7 @@ define nginx::resources::vhost (
     $proxy_sub_filter       = [],
     $proxy_sub_filter_once  = undef,
     $proxy_sub_filter_types = undef,
+    $proxy_next_upstream    = undef,
 
     ### REWRITE
     $rewrite_www_to_non_www = false,

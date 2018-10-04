@@ -27,6 +27,9 @@
 <%- @proxy_sub_filter.each do |filter| -%>
     sub_filter <%= filter %>;
 <% end -%>
+<% if @proxy_next_upstream -%>
+    proxy_next_upstream <%= @proxy_next_upstream %>;
+<% end -%>
 <% unless @proxy_headers.nil? -%>
     <%- @proxy_headers.each do |header| -%>
     proxy_set_header <%= header %>;
