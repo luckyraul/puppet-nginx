@@ -51,13 +51,15 @@ class nginx::params {
     $proxy_cache_revalidate = 'off'
     $proxy_cache_min_uses = 1
     $proxy_cache_lock = 'off'
+    $proxy_http_version = '1.1'
     $proxy_cache_key = '$scheme$proxy_host$request_uri'
 
     $proxy_set_header = [
         'Host $host',
         'X-Real-IP $remote_addr',
         'X-Forwarded-For $proxy_add_x_forwarded_for',
-        'X-Forwarded-Proto $scheme'
+        'X-Forwarded-Proto $scheme',
+        'Connection ""'
     ]
 
     case $::operatingsystem {
