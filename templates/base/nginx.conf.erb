@@ -79,6 +79,8 @@ http {
     proxy_cache_min_uses <%= @proxy_cache_min_uses %>;
     proxy_cache_lock <%= @proxy_cache_lock %>;
     proxy_cache_key <%= @proxy_cache_key %>;
+    proxy_buffers <%= @proxy_buffers %>;
+    proxy_buffer_size <%= @proxy_buffer_size %>;
 
     include /etc/nginx/mime.types;
     default_type application/octet-stream;

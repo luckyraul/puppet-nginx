@@ -53,6 +53,8 @@ class nginx::params {
     $proxy_cache_lock = 'off'
     $proxy_http_version = '1.1'
     $proxy_cache_key = '$scheme$proxy_host$request_uri'
+    $proxy_buffers = '32 4k'
+    $proxy_buffer_size = '8k'
 
     $proxy_set_header = [
         'Host $host',

@@ -41,6 +41,8 @@ class nginx::config (
     $proxy_cache_min_uses          = $nginx::proxy_cache_min_uses,
     $proxy_cache_lock              = $nginx::proxy_cache_lock,
     $proxy_cache_key               = $nginx::proxy_cache_key,
+    $proxy_buffers                 = $nginx::proxy_buffers,
+    $proxy_buffer_size             = $nginx::proxy_buffer_size
 ) inherits nginx::params
 {
 
