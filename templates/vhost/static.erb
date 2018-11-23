@@ -10,5 +10,8 @@
         try_files $uri $uri/index.html $uri.html =404;
         expires 30d;
     }
+    <% if @extra_cfg -%>
+      <%= @extra_cfg %>
+    <% end -%>
 
     include includes/static_files;
