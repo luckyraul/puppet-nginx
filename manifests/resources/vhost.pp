@@ -63,6 +63,11 @@ define nginx::resources::vhost (
     $proxy_sub_filter_types = undef,
     $proxy_next_upstream    = undef,
 
+
+    ### MODSECURITY
+    $modsecurity            = undef,
+    $modsecurity_rules_file = undef,
+
     ### REWRITE
     $rewrite_www_to_non_www = false,
     $rewrite_non_www_to_www = false,

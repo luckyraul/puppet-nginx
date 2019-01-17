@@ -17,9 +17,11 @@ server {
   ssl_certificate_key  <%= @ssl_key  %>;
   include includes/ssl;
   <%- end -%>
+
   server_name www.<%= d.gsub(/^www\./, '') %>;
   return 301 $scheme://<%= d.gsub(/^www\./, '') %>$request_uri;
 }
+
 <% end -%>
 <% end -%>
 <% if @rewrite_non_www_to_www -%>
@@ -43,6 +45,7 @@ server {
   server_name <%= d.gsub(/^www\./, '') %>;
   return 301 $scheme://www.<%= d.gsub(/^www\./, '') %>$request_uri;
 }
+
 <% end -%>
 <% end -%>
 server {
@@ -77,17 +80,20 @@ server {
   resolver <%= @ssl_resolver %> valid=300s;
   resolver_timeout 5s;
   <%- end -%>
-
-  <% if @rewrite_to_https -%>
+  <% if @rewrite_to_https %>
   if ($ssl_protocol = "") {
-       rewrite ^/(?!(favicon\.ico|robots\.txt))(.*) https://$host<% if @ssl_port.to_i != 443 %>:<%= @ssl_port %><% end %>/$2 permanent;
+    rewrite ^/(?!(favicon\.ico|robots\.txt))(.*) https://$host<% if @ssl_port.to_i != 443 %>:<%= @ssl_port %><% end %>/$2 permanent;
   }
   <% end -%>
   <%- end -%>
-  <%- if @rewrite_www_to_non_www -%>
+  <% if @rewrite_www_to_non_www %>
   server_name <%= @domains.join(" ").gsub(/^www\./, '') %>;
-  <%- elsif @rewrite_non_www_to_www -%>
+  <% elsif @rewrite_non_www_to_www %>
   server_name <%= @domains.collect{|d| 'www.'+d.to_s.gsub(/^www\./, '')}.join(' ') %>;
-  <%- else -%>
+  <% else %>
   server_name <%= @domains.collect{|d| d +' www.'+d.to_s}.join(' ') %>;
+  <% end %>
+  <%- if @modsecurity -%>
+  modsecurity on;
+  modsecurity_rules_file <%= @modsecurity_rules_file %>;
   <%- end -%>
