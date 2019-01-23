@@ -66,7 +66,13 @@ server {
 <% end -%>
 
   <%- if @ssl -%>
+  <%- if @listen_ip.is_a?(Array) then -%>
+      <%- @listen_ip.each do |ip| -%>
+  listen <%= ip %>:<%= @ssl_port %> ssl<%- if @http2 -%> http2<% end %><% if @listen_options %> <%= @listen_options %><% end %>;
+      <%- end -%>
+  <%- else -%>
   listen <%= @listen_ip %>:<%= @ssl_port %> ssl<%- if @http2 -%> http2<% end %><% if @listen_options %> <%= @listen_options %><% end %>;
+  <%- end -%>
   ssl_certificate      <%= @ssl_cert %>;
   ssl_certificate_key  <%= @ssl_key  %>;
   include includes/ssl;
