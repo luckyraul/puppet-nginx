@@ -1,35 +1,36 @@
 {
   "name": "luckyraul-nginx",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Nikita Tarasov",
   "summary": "Module for installing and managing Nginx",
   "license": "Apache-2.0",
   "source": "https://github.com/luckyraul/puppet-nginx.git",
   "project_page": "https://github.com/luckyraul/puppet-nginx",
   "issues_url": "https://github.com/luckyraul/puppet-nginx/issues",
+  "dependencies": [
+
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "7",
         "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
       ]
     }
   ],
   "requirements": [
     {
-      "name": "pe",
-      "version_requirement": "3.7"
-    },
-    {
       "name": "puppet",
-      "version_requirement": "3.4"
+      "version_requirement": ">= 4.10.0 < 7.0.0"
     }
   ],
-  "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.1.0"},
-    {"name":"puppetlabs/apt","version_requirement":">= 4.3.0"},
-    {"name": "puppetlabs/inifile","version_requirement":">= 1.4.3"},
-    {"name": "puppetlabs/concat","version_requirement":">= 2.1.0"}
-  ]
+  "pdk-version": "1.9.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates.git",
+  "template-ref": "1.9.0-0-g7281db5"
 }

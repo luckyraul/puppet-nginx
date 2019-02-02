@@ -1,3 +1,8 @@
+# Class: nginx::params
+# ====================
+#
+# nginx default settings and according to operating system
+#
 # == Class: nginx::params
 class nginx::params {
     $ensure = present
