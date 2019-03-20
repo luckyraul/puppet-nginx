@@ -35,6 +35,9 @@
     proxy_set_header <%= header %>;
     <%- end -%>
 <% end -%>
+<% if @proxy_extra_cfg -%>
+    <%= @proxy_extra_cfg %>
+<% end -%>
   }
 <% if @extra_cfg -%>
   <%= @extra_cfg %>
