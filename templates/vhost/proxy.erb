@@ -30,6 +30,9 @@
 <% if @proxy_next_upstream -%>
     proxy_next_upstream <%= @proxy_next_upstream %>;
 <% end -%>
+<% if @proxy_hide_header -%>
+    proxy_hide_header <%= @proxy_hide_header %>;
+<% end -%>
 <% unless @proxy_headers.nil? -%>
     <%- @proxy_headers.each do |header| -%>
     proxy_set_header <%= header %>;
