@@ -52,6 +52,7 @@ class nginx (
     $gzip_vary                     = $nginx::params::gzip_vary,
     $gzip_comp_level               = $nginx::params::gzip_comp_level,
     $gzip_types                    = $nginx::params::gzip_types,
+    $log_format                    = {},
 
     ### PROXY
     $proxy_cache_path              = $nginx::params::proxy_cache_path,

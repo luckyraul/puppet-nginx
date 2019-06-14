@@ -35,6 +35,7 @@ class nginx::config (
     $gzip_vary                     = $nginx::gzip_vary,
     $gzip_comp_level               = $nginx::gzip_comp_level,
     $gzip_types                    = $nginx::gzip_types,
+    $log_format                    = $nginx::log_format,
     $proxy_cache_path              = $nginx::proxy_cache_path,
     $proxy_cache_use_stale         = $nginx::proxy_cache_use_stale,
     $proxy_cache_revalidate        = $nginx::proxy_cache_revalidate,
