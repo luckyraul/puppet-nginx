@@ -8,11 +8,6 @@ define nginx::resources::map (
     $hostnames = undef,
 )
 {
-    validate_string($key)
-    validate_string($var)
-    validate_hash($mappings)
-    if ($default != undef) { validate_string($default) }
-
     $ensure_real = $ensure ? {
       'absent' => absent,
       default  => 'file',
