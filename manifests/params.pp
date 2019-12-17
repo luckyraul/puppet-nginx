@@ -67,7 +67,7 @@ class nginx::params {
     case $::operatingsystem {
         'Debian', 'Ubuntu': {
             case $::lsbdistcodename {
-                'wheezy', 'jessie', 'stretch','xenial': {
+                'jessie', 'stretch','xenial', 'buster': {
                     $package_name = 'nginx-extras'
                 }
                 default: {
