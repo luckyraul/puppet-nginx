@@ -47,6 +47,21 @@ class nginx::config (
 ) inherits nginx::params
 {
 
+  case $::operatingsystem {
+      'Debian', 'Ubuntu': {
+          case $::lsbdistcodename {
+              'jessie', 'stretch', 'xenial': {
+                  $tls = 'TLSv1.2'
+              }
+              default: {
+                  $tls = 'TLSv1.2 TLSv1.3'
+              }
+          }
+      }
+      default: {
+          fail("Unsupported os: ${::operatingsystem}")
+      }
+  }
 
     file { '/etc/nginx/nginx.conf':
         ensure  => present,
