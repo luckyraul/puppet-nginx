@@ -9,6 +9,9 @@
 <% if @proxy_http_version -%>
     proxy_http_version <%= @proxy_http_version %>;
 <% end -%>
+<% if @proxy_buffering -%>
+    proxy_buffering <%= @proxy_buffering %>;
+<% end -%>
 <% if @proxy_limit_req -%>
     limit_req zone=<%= @proxy_limit_req %><% if @proxy_limit_req_burst -%> burst=<%= @proxy_limit_req_burst %><% end -%><% if @proxy_limit_req_delay -%> nodelay<% end -%>;
 <% end -%>
