@@ -67,6 +67,9 @@ define nginx::resources::vhost (
     $proxy_extra_cfg        = undef,
 
 
+    ### RETURN
+    $return                 = undef,
+
     ### MODSECURITY
     $modsecurity            = undef,
     $modsecurity_rules_file = undef,

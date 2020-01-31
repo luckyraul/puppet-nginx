@@ -103,3 +103,6 @@ server {
   modsecurity on;
   modsecurity_rules_file <%= @modsecurity_rules_file %>;
   <%- end -%>
+  <%- if @return -%>
+  return <%= @return %>;
+  <%- end -%>
