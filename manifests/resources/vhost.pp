@@ -67,6 +67,12 @@ define nginx::resources::vhost (
     $proxy_extra_cfg        = undef,
 
 
+    ### REAL IP
+    $real_ip_from           = [],
+    $real_ip_header         = undef,
+    $real_ip_recursive      = undef,
+
+
     ### RETURN
     $return                 = undef,
 

@@ -99,6 +99,15 @@ server {
   <% else %>
   server_name <%= @domains.collect{|d| d +' www.'+d.to_s}.join(' ') %>;
   <% end %>
+  <%- @real_ip_from.sort.each do |ip| -%>
+  set_real_ip_from <%= ip %>;
+  <%- end -%>
+  <%- if @real_ip_header -%>
+  real_ip_header  <%= @real_ip_header %>;
+  <%- end -%>
+  <%- if @real_ip_recursive -%>
+  real_ip_recursive  <%= @real_ip_recursive %>;
+  <%- end -%>
   <%- if @modsecurity -%>
   modsecurity on;
   modsecurity_rules_file <%= @modsecurity_rules_file %>;
