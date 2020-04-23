@@ -75,9 +75,6 @@ class nginx (
 
     ) inherits nginx::params
 {
-
-    validate_string($ensure)
-
     if $backports and $dotdeb {
         fail("Can't use both dotdeb and backports repositories")
     }

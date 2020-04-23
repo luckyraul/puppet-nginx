@@ -120,6 +120,12 @@ class nginx::config (
         content => template('nginx/includes/ssl.erb'),
     }
 
+    file { '/etc/nginx/includes/cloudflare':
+        ensure  => present,
+        require => File[$default_directories],
+        content => template('nginx/includes/cloudflare.erb'),
+    }
+
     file { '/etc/nginx/includes/security':
         ensure  => present,
         require => File[$default_directories],
