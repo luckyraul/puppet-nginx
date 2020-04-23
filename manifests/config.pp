@@ -126,6 +126,12 @@ class nginx::config (
         content => template('nginx/includes/cloudflare.erb'),
     }
 
+    file { '/etc/nginx/includes/proxy':
+        ensure  => present,
+        require => File[$default_directories],
+        content => template('nginx/includes/proxy.erb'),
+    }
+
     file { '/etc/nginx/includes/security':
         ensure  => present,
         require => File[$default_directories],
