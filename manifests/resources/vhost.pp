@@ -103,7 +103,7 @@ define nginx::resources::vhost (
     $external               = false,
 )
 {
-    validate_array($domains)
+    # validate_array($domains)
 
     if !(is_array($listen_ip) or is_string($listen_ip)) {
       fail('$listen_ip must be a string or array.')
@@ -113,7 +113,7 @@ define nginx::resources::vhost (
       fail('$listen_port must be an integer.')
     }
 
-    validate_bool($listen_v6)
+    # validate_bool($listen_v6)
     if !(is_array($listen_v6_ip) or is_string($listen_v6_ip)) {
       fail('$listen_v6_ip must be a string or array.')
     }
@@ -122,18 +122,18 @@ define nginx::resources::vhost (
       fail('$listen_v6_port must be an integer.')
     }
 
-    validate_string($listen_v6_options)
+    # validate_string($listen_v6_options)
 
-    validate_bool($ssl)
-    if ($ssl) {
-        validate_string($ssl_cert)
-        validate_string($ssl_key)
-        validate_bool($ssl_only)
-    }
-    validate_bool($http2)
+    # validate_bool($ssl)
+    # if ($ssl) {
+        # validate_string($ssl_cert)
+        # validate_string($ssl_key)
+        # validate_bool($ssl_only)
+    # }
+    # validate_bool($http2)
 
-    validate_bool($rewrite_non_www_to_www)
-    validate_bool($rewrite_www_to_non_www)
+    # validate_bool($rewrite_non_www_to_www)
+    # validate_bool($rewrite_www_to_non_www)
     if($rewrite_non_www_to_www and $rewrite_www_to_non_www)
     {
       fail('www <-> non www loooop')
@@ -144,14 +144,14 @@ define nginx::resources::vhost (
       fail('choose beetween https <-> http with https redirect')
     }
 
-    if ($http_auth != undef) {
-        validate_string($http_auth_file)
-    }
+    # if ($http_auth != undef) {
+        # validate_string($http_auth_file)
+    # }
 
-    if($template)
-    {
-        validate_string($template)
-    }
+    # if($template)
+    # {
+        # validate_string($template)
+    # }
 
     $main_domain = $domains[0]
     $conf_file = "/etc/nginx/sites-available/${main_domain}"

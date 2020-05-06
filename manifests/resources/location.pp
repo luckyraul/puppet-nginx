@@ -15,8 +15,8 @@ define nginx::resources::location (
   $http_auth_satisfy = undef,
 )
 {
-  validate_string($location)
-  validate_hash($config)
+  # validate_string($location)
+  # validate_hash($config)
 
   concat::fragment { "${domain}-locations-${name}":
       target  => $file,

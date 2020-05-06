@@ -7,11 +7,11 @@ define nginx::resources::limit_zone (
     $ensure = 'present',
 )
 {
-    validate_string($key)
-    validate_string($type)
-    validate_string($size)
+    # validate_string($key)
+    # validate_string($type)
+    # validate_string($size)
     if ($rate != undef) {
-      validate_string($rate)
+      # validate_string($rate)
       $rate_real = " rate=${rate}"
     } else {
       $rate_real = ''
