@@ -9,9 +9,9 @@ define nginx::resources::upstream (
     $least_conn = false,
 )
 {
-    if $members != undef {
+    #if $members != undef {
         # validate_array($members)
-    }
+    #}
 
     # validate_re($ensure, '^(present|absent)$', "${ensure} is not supported for ensure. Allowed values are 'present' and 'absent'.")
 
