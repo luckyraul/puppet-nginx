@@ -72,6 +72,7 @@ class nginx (
 
     #### Docker
     $docker                        = false,
+    $docker_combo                  = false,
 
     ) inherits nginx::params
 {
@@ -108,7 +109,9 @@ class nginx (
             mode    => '0755',
             content => template('nginx/docker/entrypoint.sh.erb'),
         }
+    }
 
+    if $docker or $docker_combo {
         file {$access_log:
           ensure  => 'link',
           target  => '/dev/stdout',
