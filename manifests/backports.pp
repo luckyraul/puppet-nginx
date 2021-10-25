@@ -1,4 +1,4 @@
-# == Class: nginx::dotdeb
+# == Class: nginx::backports
 class nginx::backports(
     $enabled    = $nginx::backports,
 )

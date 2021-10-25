@@ -2,7 +2,7 @@
 class nginx::params {
     $ensure = present
     $service_ensure = 'running'
-    $service_restart = '/etc/init.d/nginx reload'
+    $service_restart = '/etc/init.d/nginx reload' # systemctl reload nginx.service
     $service_enable = true
     $daemon_user = 'www-data'
     $daemon_mode = 'on'
@@ -65,9 +65,19 @@ class nginx::params {
     ]
 
     case $::operatingsystem {
-        'Debian', 'Ubuntu': {
+        'Debian': {
             case $::lsbdistcodename {
-                'jessie', 'stretch','xenial', 'buster': {
+                'stretch', 'buster', 'bullseye': {
+                    $package_name = 'nginx-extras'
+                }
+                default: {
+                    fail("Unsupported release: ${::lsbdistcodename}")
+                }
+            }
+        }
+        'Ubuntu': {
+            case $::lsbdistcodename {
+                'bionic','focal': {
                     $package_name = 'nginx-extras'
                 }
                 default: {

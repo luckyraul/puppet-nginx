@@ -8,8 +8,6 @@
 # [*official_repo*]
 #   Include official repository to install recent Nginx
 #
-# [*dotdeb*]
-#   Include dotdeb repository to install recent Nginx addons
 #
 class nginx (
     $ensure                        = $nginx::params::ensure,
@@ -18,7 +16,6 @@ class nginx (
     $service_restart               = $nginx::params::service_restart,
     $package_name                  = $nginx::params::package_name,
     $backports                     = false,
-    $dotdeb                        = false,
     $default_server                = true,
     $default_port                  = 80,
     $daemon_mode                   = $nginx::params::daemon_mode,
@@ -76,13 +73,6 @@ class nginx (
 
     ) inherits nginx::params
 {
-    if $backports and $dotdeb {
-        fail("Can't use both dotdeb and backports repositories")
-    }
-
-    if $dotdeb {
-        class { 'nginx::dotdeb': } -> Anchor['nginx::begin']
-    }
     if $backports and ($::operatingsystem == 'Debian') {
         class { 'nginx::backports': } -> Anchor['nginx::begin']
     }
