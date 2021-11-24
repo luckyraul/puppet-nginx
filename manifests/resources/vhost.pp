@@ -14,126 +14,95 @@
 #
 #   95 - upstreams
 define nginx::resources::vhost (
-    $root_folder            = undef,
-    $domains                = ['_'],
-    $ensure                 = 'present',
-    $listen_ip              = '*',
-    $listen_port            = 80,
-    $listen_options         = undef,
+    $root_folder                         = undef,
+    $domains                             = ['_'],
+    $ensure                              = 'present',
+    Variant[Array, String] $listen_ip    = '*',
+    Stdlib::Port $listen_port            = 80,
+    $listen_options                      = undef,
 
     ### IPv6
-    $listen_v6              = false,
-    $listen_v6_ip           = '::',
-    $listen_v6_port         = 80,
-    $listen_v6_options      = 'default ipv6only=on',
+    $listen_v6                           = false,
+    Variant[Array, String] $listen_v6_ip = '::',
+    Stdlib::Port $listen_v6_port         = 80,
+    $listen_v6_options                   = 'default ipv6only=on',
 
     ### SSL
-    $ssl                    = false,
-    $ssl_port               = 443,
-    $ssl_only               = false,
-    $ssl_cert               = undef,
-    $ssl_key                = undef,
-    $ssl_stapling           = false,
-    $ssl_stapling_verify    = false,
-    $ssl_resolver           = '8.8.8.8 8.8.4.4',
-    $ssl_root               = undef,
-    $http2                  = true,
+    $ssl                                 = false,
+    $ssl_port                            = 443,
+    $ssl_only                            = false,
+    $ssl_cert                            = undef,
+    $ssl_key                             = undef,
+    $ssl_stapling                        = false,
+    $ssl_stapling_verify                 = false,
+    $ssl_resolver                        = '8.8.8.8 8.8.4.4',
+    $ssl_root                            = undef,
+    $http2                               = true,
 
     ### HTTP AUTH
-    $http_auth              = undef,
-    $http_auth_var          = 'Restricted',
-    $http_auth_file         = '.htpasswd',
-    $http_auth_url          = '/',
-    $http_auth_file_content = undef,
-    $http_auth_allow        = ['127.0.0.1'],
-    $http_auth_deny         = ['all'],
-    $http_auth_satisfy      = 'any',
+    $http_auth                           = undef,
+    $http_auth_var                       = 'Restricted',
+    $http_auth_file                      = '.htpasswd',
+    $http_auth_url                       = '/',
+    $http_auth_file_content              = undef,
+    $http_auth_allow                     = ['127.0.0.1'],
+    $http_auth_deny                      = ['all'],
+    $http_auth_satisfy                   = 'any',
 
     ### PROXY
-    $proxy                  = undef,
-    $proxy_headers          = $nginx::params::proxy_set_header,
-    $proxy_http_version     = $nginx::params::proxy_http_version,
-    $proxy_read_timeout     = undef,
-    $proxy_buffering        = undef,
-    $proxy_limit_req        = undef,
-    $proxy_limit_req_burst  = undef,
-    $proxy_limit_req_delay  = undef,
-    $proxy_limit_req_status = undef,
-    $proxy_sub_filter       = [],
-    $proxy_sub_filter_once  = undef,
-    $proxy_sub_filter_types = undef,
-    $proxy_next_upstream    = undef,
-    $proxy_hide_header      = undef,
-    $proxy_extra_cfg        = undef,
+    $proxy                               = undef,
+    $proxy_headers                       = $nginx::params::proxy_set_header,
+    $proxy_http_version                  = $nginx::params::proxy_http_version,
+    $proxy_read_timeout                  = undef,
+    $proxy_buffering                     = undef,
+    $proxy_limit_req                     = undef,
+    $proxy_limit_req_burst               = undef,
+    $proxy_limit_req_delay               = undef,
+    $proxy_limit_req_status              = undef,
+    $proxy_sub_filter                    = [],
+    $proxy_sub_filter_once               = undef,
+    $proxy_sub_filter_types              = undef,
+    $proxy_next_upstream                 = undef,
+    $proxy_hide_header                   = undef,
+    $proxy_extra_cfg                     = undef,
 
 
     ### REAL IP
-    $real_ip_from           = [],
-    $real_ip_header         = undef,
-    $real_ip_recursive      = undef,
+    $real_ip_from                        = [],
+    $real_ip_header                      = undef,
+    $real_ip_recursive                   = undef,
 
 
     ### RETURN
-    $return                 = undef,
+    $return                              = undef,
 
     ### MODSECURITY
-    $modsecurity            = undef,
-    $modsecurity_rules_file = undef,
+    $modsecurity                         = undef,
+    $modsecurity_rules_file              = undef,
 
     ### REWRITE
-    $rewrite_www_to_non_www = false,
-    $rewrite_non_www_to_www = false,
-    $rewrite_to_https       = false,
+    $rewrite_www_to_non_www              = false,
+    $rewrite_non_www_to_www              = false,
+    $rewrite_to_https                    = false,
 
     ### ADDITIONS
-    $index_files            = [],
-    $includes               = [],
-    $variables              = {},
-    $headers                = [],
-    $error_pages            = {},
-    $upstreams              = {},
-    $locations              = {},
-    $try_files              = undef,
-    $template               = undef,
-    $type                   = undef,
-    $charset                = undef,
-    $autoindex              = undef,
-    $extra_cfg              = undef,
+    $index_files                         = [],
+    $includes                            = [],
+    $variables                           = {},
+    $headers                             = [],
+    $error_pages                         = {},
+    $upstreams                           = {},
+    $locations                           = {},
+    $try_files                           = undef,
+    $template                            = undef,
+    $type                                = undef,
+    $charset                             = undef,
+    $autoindex                           = undef,
+    $extra_cfg                           = undef,
 
-    $external               = false,
+    $external                            = false,
 )
 {
-    # validate_array($domains)
-
-    if !(is_array($listen_ip) or is_string($listen_ip)) {
-      fail('$listen_ip must be a string or array.')
-    }
-
-    if !is_integer($listen_port) {
-      fail('$listen_port must be an integer.')
-    }
-
-    # validate_bool($listen_v6)
-    if !(is_array($listen_v6_ip) or is_string($listen_v6_ip)) {
-      fail('$listen_v6_ip must be a string or array.')
-    }
-
-    if !is_integer($listen_v6_port) {
-      fail('$listen_v6_port must be an integer.')
-    }
-
-    # validate_string($listen_v6_options)
-
-    # validate_bool($ssl)
-    # if ($ssl) {
-        # validate_string($ssl_cert)
-        # validate_string($ssl_key)
-        # validate_bool($ssl_only)
-    # }
-    # validate_bool($http2)
-
-    # validate_bool($rewrite_non_www_to_www)
-    # validate_bool($rewrite_www_to_non_www)
     if($rewrite_non_www_to_www and $rewrite_www_to_non_www)
     {
       fail('www <-> non www loooop')
@@ -144,18 +113,8 @@ define nginx::resources::vhost (
       fail('choose beetween https <-> http with https redirect')
     }
 
-    # if ($http_auth != undef) {
-        # validate_string($http_auth_file)
-    # }
-
-    # if($template)
-    # {
-        # validate_string($template)
-    # }
-
     $main_domain = $domains[0]
     $conf_file = "/etc/nginx/sites-available/${main_domain}"
-
 
     if($http_auth != undef and $http_auth_file_content != undef) {
       if(is_absolute_path($http_auth_file)) {
