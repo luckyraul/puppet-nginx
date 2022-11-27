@@ -67,7 +67,7 @@ class nginx::params {
     case $::operatingsystem {
         'Debian': {
             case $::lsbdistcodename {
-                'stretch', 'buster', 'bullseye': {
+                'stretch', 'buster', 'bullseye', 'bookworm': {
                     $package_name = 'nginx-extras'
                 }
                 default: {
