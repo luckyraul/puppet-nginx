@@ -2,7 +2,7 @@ user <%= @daemon_user %>;
 <% if @daemon_mode == 'off' -%>
 daemon <%= @daemon_mode %>;
 <% end -%>
-worker_processes <%= @processorcount %>;
+worker_processes <%= @facts['processors']['count'] %>;
 <% if @worker_rlimit_nofile -%>
 worker_rlimit_nofile <%= @worker_rlimit_nofile %>;
 <% end -%>

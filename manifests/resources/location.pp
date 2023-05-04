@@ -13,14 +13,13 @@ define nginx::resources::location (
   $http_auth_allow   = undef,
   $http_auth_deny    = undef,
   $http_auth_satisfy = undef,
-)
-{
+) {
   # validate_string($location)
   # validate_hash($config)
 
   concat::fragment { "${domain}-locations-${name}":
-      target  => $file,
-      content => template('nginx/vhost/parts/location.erb'),
-      order   => '70',
+    target  => $file,
+    content => template('nginx/vhost/parts/location.erb'),
+    order   => '70',
   }
 }
