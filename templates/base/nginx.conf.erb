@@ -72,6 +72,13 @@ http {
     # gzip_http_version 1.1;
     # gzip_proxied any;
 
+<% if @brotli -%>
+    ##
+    # Brotli Settings
+    ##
+    brotli on;
+    brotli_types <%= @gzip_types.kind_of?(Array) ? @gzip_types.join(' ') : @gzip_types %>;
+<% end -%>
 
     ##
     # Proxy Settings

@@ -65,8 +65,15 @@ class nginx::params {
   case $facts['os']['name'] {
     'Debian': {
       case $facts['os']['distro']['codename'] {
-        'stretch', 'buster', 'bullseye', 'bookworm': {
+        'bookworm': {
+          $additional = ['libnginx-mod-http-brotli-filter','libnginx-mod-http-brotli-static']
           $package_name = 'nginx-extras'
+          $brotli = true
+        }
+        'stretch', 'buster', 'bullseye': {
+          $additional = []
+          $package_name = 'nginx-extras'
+          $brotli = false
         }
         default: {
           fail("Unsupported release: ${facts['os']['distro']['codename']}")
@@ -76,7 +83,9 @@ class nginx::params {
     'Ubuntu': {
       case $facts['os']['distro']['codename'] {
         'bionic','focal': {
+          $additional = []
           $package_name = 'nginx-extras'
+          $brotli = false
         }
         default: {
           fail("Unsupported release: ${facts['os']['distro']['codename']}")

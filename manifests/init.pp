@@ -15,6 +15,7 @@ class nginx (
   $service_enable                = $nginx::params::service_enable,
   $service_restart               = $nginx::params::service_restart,
   $package_name                  = $nginx::params::package_name,
+  $additional_packages           = $nginx::params::additional,
   $backports                     = false,
   $default_server                = true,
   $default_port                  = 80,
@@ -49,6 +50,7 @@ class nginx (
   $gzip_vary                     = $nginx::params::gzip_vary,
   $gzip_comp_level               = $nginx::params::gzip_comp_level,
   $gzip_types                    = $nginx::params::gzip_types,
+  $brotli                        = $nginx::params::brotli,
   $log_format                    = {},
 
   ### PROXY
