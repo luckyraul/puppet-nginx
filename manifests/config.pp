@@ -103,6 +103,12 @@ class nginx::config (
     content => template('nginx/includes/ssl.erb'),
   }
 
+  file { '/etc/nginx/conf.d/logformat.conf':
+    ensure  => file,
+    require => File[$default_directories],
+    content => template('nginx/includes/logformat.erb'),
+  }
+
   file { '/etc/nginx/includes/cloudflare':
     ensure  => file,
     require => File[$default_directories],
