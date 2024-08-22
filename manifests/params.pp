@@ -65,7 +65,7 @@ class nginx::params {
   case $facts['os']['name'] {
     'Debian': {
       case $facts['os']['distro']['codename'] {
-        'bookworm': {
+        'bookworm','trixie': {
           $additional = ['libnginx-mod-http-brotli-filter','libnginx-mod-http-brotli-static']
           $package_name = 'nginx-extras'
           $brotli = true

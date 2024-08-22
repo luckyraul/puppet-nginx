@@ -103,6 +103,10 @@ class nginx (
   }
 
   if $docker or $docker_combo {
+    file { $daemon_pid:
+      ensure => 'absent',
+    }
+
     file { $access_log:
       ensure  => 'link',
       target  => '/dev/stdout',
