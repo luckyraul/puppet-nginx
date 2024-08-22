@@ -1,4 +1,6 @@
+<% if @daemon_user -%>
 user <%= @daemon_user %>;
+<% end -%>
 <% if @daemon_mode == 'off' -%>
 daemon <%= @daemon_mode %>;
 <% end -%>
