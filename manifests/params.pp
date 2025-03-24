@@ -82,7 +82,12 @@ class nginx::params {
     }
     'Ubuntu': {
       case $facts['os']['distro']['codename'] {
-        'bionic','focal': {
+        'noble': {
+          $additional = ['libnginx-mod-http-brotli-filter','libnginx-mod-http-brotli-static']
+          $package_name = 'nginx-extras'
+          $brotli = true
+        }
+        'focal','jammy': {
           $additional = []
           $package_name = 'nginx-extras'
           $brotli = false
