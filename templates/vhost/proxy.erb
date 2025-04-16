@@ -45,6 +45,6 @@
     <%= @proxy_extra_cfg %>
 <% end -%>
   }
-<% if @extra_cfg -%>
+<% if @extra_cfg && !@root_folder -%>
   <%= @extra_cfg %>
 <% end -%>
