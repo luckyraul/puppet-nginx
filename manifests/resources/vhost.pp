@@ -15,6 +15,7 @@
 #   95 - upstreams
 define nginx::resources::vhost (
   $root_folder                         = undef,
+  $custom_name                         = undef,
   $domains                             = ['_'],
   $ensure                              = 'present',
   Variant[Array, String] $listen_ip    = '*',
@@ -109,7 +110,14 @@ define nginx::resources::vhost (
   }
 
   $main_domain = $domains[0]
-  $conf_file = "/etc/nginx/sites-available/${main_domain}"
+
+  if ($custom_name) {
+    $conf_file_name = $custom_name
+  } else {
+    $conf_file_name = $main_domain
+  }
+
+  $conf_file = "/etc/nginx/sites-available/${conf_file_name}"
 
   if($http_auth != undef and $http_auth_file_content != undef) {
     if(is_absolute_path($http_auth_file)) {
@@ -204,9 +212,9 @@ define nginx::resources::vhost (
   case $ensure {
     'present' : {
       exec { "enable_${main_domain}":
-        command => "ln -s /etc/nginx/sites-available/${main_domain} /etc/nginx/sites-enabled/",
+        command => "ln -s ${conf_file} /etc/nginx/sites-enabled/",
         path    => '/bin',
-        unless  => "/bin/readlink -e /etc/nginx/sites-enabled/${main_domain}",
+        unless  => "/bin/readlink -e /etc/nginx/sites-enabled/${conf_file_name}",
       }
       if(!$external) {
         Class['nginx::config'] -> Exec["enable_${main_domain}"] ~> Service['nginx']
@@ -214,9 +222,9 @@ define nginx::resources::vhost (
     }
     'absent': {
       exec { "disable_${main_domain}":
-        command => "rm /etc/nginx/sites-enabled/${main_domain}",
+        command => "rm /etc/nginx/sites-enabled/${conf_file_name}",
         path    => '/bin',
-        onlyif  => "/bin/readlink -e /etc/nginx/sites-enabled/${main_domain}",
+        onlyif  => "/bin/readlink -e /etc/nginx/sites-enabled/${conf_file_name}",
       }
       if(!$external) {
         Class['nginx::config'] -> Exec["disable_${main_domain}"] ~> Service['nginx']
