@@ -115,6 +115,12 @@ class nginx::config (
     content => template('nginx/includes/cloudflare.erb'),
   }
 
+  file { '/etc/nginx/includes/robots':
+    ensure  => file,
+    require => File[$default_directories],
+    content => template('nginx/includes/robots.erb'),
+  }
+
   file { '/etc/nginx/includes/proxy':
     ensure  => file,
     require => File[$default_directories],
