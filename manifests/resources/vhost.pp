@@ -18,6 +18,7 @@ define nginx::resources::vhost (
   $custom_name                         = undef,
   $domains                             = ['_'],
   $ensure                              = 'present',
+  $main_key                            = undef,
   Variant[Array, String] $listen_ip    = '*',
   Stdlib::Port $listen_port            = 80,
   $listen_options                      = undef,
@@ -111,6 +112,11 @@ define nginx::resources::vhost (
 
   $main_domain = $domains[0]
 
+  $key = $main_key ? {
+    undef   => $main_domain,
+    default => $main_key,
+  }
+
   if ($custom_name) {
     $conf_file_name = $custom_name
   } else {
@@ -146,7 +152,7 @@ define nginx::resources::vhost (
 
     Concat[$conf_file] ~> Service['nginx']
 
-    concat::fragment { "${main_domain}-head":
+    concat::fragment { "${key}-head":
       target  => $conf_file,
       content => template('nginx/vhost/parts/head.erb'),
       order   => '01',
@@ -159,7 +165,7 @@ define nginx::resources::vhost (
 
     if(!$proxy and $http_auth and $http_auth_url == '/') {
       $auth_locations = {
-        "${main_domain}-root"      => {
+        "${key}-root"      => {
           location          => '/',
           http_auth         => true,
           http_auth_var     => $http_auth_var,
@@ -179,7 +185,7 @@ define nginx::resources::vhost (
     }
 
     if($error_pages) {
-      concat::fragment { "${main_domain}-error_pages":
+      concat::fragment { "${key}-error_pages":
         target  => $conf_file,
         content => template('nginx/vhost/parts/error_pages.erb'),
         order   => '49',
@@ -187,7 +193,7 @@ define nginx::resources::vhost (
     }
 
     if($root_folder) {
-      concat::fragment { "${main_domain}-body":
+      concat::fragment { "${key}-body":
         target  => $conf_file,
         content => template('nginx/vhost/directory.erb'),
         order   => '50',
@@ -195,14 +201,14 @@ define nginx::resources::vhost (
     }
 
     if($proxy) {
-      concat::fragment { "${main_domain}-proxy":
+      concat::fragment { "${key}-proxy":
         target  => $conf_file,
         content => template('nginx/vhost/proxy.erb'),
         order   => '51',
       }
     }
 
-    concat::fragment { "${main_domain}-footer":
+    concat::fragment { "${key}-footer":
       target  => $conf_file,
       content => template('nginx/vhost/parts/footer.erb'),
       order   => '90',
@@ -211,23 +217,23 @@ define nginx::resources::vhost (
 
   case $ensure {
     'present' : {
-      exec { "enable_${main_domain}":
+      exec { "enable_${conf_file_name}":
         command => "ln -s ${conf_file} /etc/nginx/sites-enabled/",
         path    => '/bin',
         unless  => "/bin/readlink -e /etc/nginx/sites-enabled/${conf_file_name}",
       }
       if(!$external) {
-        Class['nginx::config'] -> Exec["enable_${main_domain}"] ~> Service['nginx']
+        Class['nginx::config'] -> Exec["enable_${conf_file_name}"] ~> Service['nginx']
       }
     }
     'absent': {
-      exec { "disable_${main_domain}":
+      exec { "disable_${conf_file_name}":
         command => "rm /etc/nginx/sites-enabled/${conf_file_name}",
         path    => '/bin',
         onlyif  => "/bin/readlink -e /etc/nginx/sites-enabled/${conf_file_name}",
       }
       if(!$external) {
-        Class['nginx::config'] -> Exec["disable_${main_domain}"] ~> Service['nginx']
+        Class['nginx::config'] -> Exec["disable_${conf_file_name}"] ~> Service['nginx']
       }
     }
     default: { err ( "Unknown ensure value: '${ensure}'" ) }
