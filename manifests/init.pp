@@ -106,17 +106,19 @@ class nginx (
     file { $daemon_pid:
       ensure => 'absent',
     }
-
-    file { $access_log:
-      ensure  => 'link',
-      target  => '/dev/stdout',
-      require => Class['nginx::packages'],
+    if $access_log != '/dev/stdout' {
+      file { $access_log:
+        ensure  => 'link',
+        target  => '/dev/stdout',
+        require => Class['nginx::packages'],
+      }
     }
-
-    file { $error_log:
-      ensure  => 'link',
-      target  => '/dev/stderr',
-      require => Class['nginx::packages'],
+    if $error_log != '/dev/stderr' {
+      file { $error_log:
+        ensure  => 'link',
+        target  => '/dev/stderr',
+        require => Class['nginx::packages'],
+      }
     }
   }
 }
