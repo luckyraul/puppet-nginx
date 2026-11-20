@@ -9,3 +9,4 @@ doc
 log
 Gemfile.lock
 coverage/*
+.old
