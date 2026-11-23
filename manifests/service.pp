@@ -1,14 +1,21 @@
 # == Class: nginx::service
-class nginx::service (
-  $service_ensure   = $nginx::service_ensure,
-  $service_enable   = $nginx::service_enable,
-  $service_restart  = $nginx::service_restart,
-) {
+class nginx::service {
+  assert_private()
+  $service_require = Exec['nginx_config_check']
+
+  exec { 'nginx_config_check':
+    command     => $nginx::service_config_check_command,
+    refreshonly => true,
+    require     => Package['nginx'],
+    path        => [
+      '/usr/sbin',
+    ],
+  }
+
   service { 'nginx':
-    ensure     => $service_ensure,
-    enable     => $service_enable,
-    hasstatus  => true,
-    hasrestart => true,
-    restart    => $service_restart,
+    ensure  => $nginx::service_ensure,
+    enable  => $nginx::service_enable,
+    restart => $nginx::service_restart,
+    require => Exec['nginx_config_check'],
   }
 }

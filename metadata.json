@@ -1,31 +1,26 @@
 {
   "name": "luckyraul-nginx",
-  "version": "1.0.0",
-  "author": "Nikita Tarasov",
-  "summary": "Module for installing and managing Nginx",
+  "version": "0.0.1",
+  "author": "N",
   "license": "Apache-2.0",
+  "summary": "Module for installing and managing nginx",
   "source": "https://github.com/luckyraul/puppet-nginx.git",
-  "project_page": "https://github.com/luckyraul/puppet-nginx",
-  "issues_url": "https://github.com/luckyraul/puppet-nginx/issues",
-  "operatingsystem_support": [
+  "dependencies": [
     {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "7",
-        "8"
-      ]
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 9.0.0 < 11.0.0"
     }
   ],
   "requirements": [
     {
+      "name": "openvox",
+      "version_requirement": ">= 8.0.0 < 10.0.0"
+    },
+    {
       "name": "puppet",
-      "version_requirement": ">= 7.0.0"
+      "version_requirement": ">= 8.0.0 < 10.0.0"
     }
   ],
-  "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.1.0"},
-    {"name":"puppetlabs/apt","version_requirement":">= 4.3.0"},
-    {"name": "puppetlabs/inifile","version_requirement":">= 1.4.3"},
-    {"name": "puppetlabs/concat","version_requirement":">= 2.1.0"}
-  ]
+  "operatingsystem_support": [],
+  "tags": []
 }
